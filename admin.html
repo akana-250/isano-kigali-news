@@ -6,12 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin | ISANO KIGALI NEWS</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 760px; margin: 30px auto; padding: 16px; background: #f4f6f9; color: #172033; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 760px;
+      margin: 30px auto;
+      padding: 16px;
+      background: #f4f6f9;
+      color: #172033;
+    }
     h1 { color: #123b70; }
-    section { background: white; padding: 20px; margin: 18px 0; border-radius: 10px; }
-    input, textarea, select, button { box-sizing: border-box; width: 100%; padding: 12px; margin: 8px 0; }
-    button { background: #123b70; color: white; border: 0; border-radius: 6px; cursor: pointer; }
+    section {
+      background: white;
+      padding: 20px;
+      margin: 18px 0;
+      border-radius: 10px;
+    }
+    input, textarea, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+    }
+    button {
+      background: #123b70;
+      color: white;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #888;
+      cursor: not-allowed;
+    }
     .note { color: #555; line-height: 1.5; }
+    #status { overflow-wrap: anywhere; }
   </style>
 </head>
 <body>
@@ -20,8 +48,11 @@
 
   <section>
     <h2>Kwinjira muri Admin</h2>
-    <input id="email" type="email" placeholder="Email ya Admin">
-    <input id="password" type="password" placeholder="Ijambo ry'ibanga">
+    <input id="email" type="email" placeholder="Email ya Admin"
+           autocomplete="username">
+    <input id="password" type="password"
+           placeholder="Ijambo ry'ibanga"
+           autocomplete="current-password">
     <button id="login">Injira</button>
     <button id="logout">Sohoka</button>
     <p id="status" role="status">Banza winjire muri konti ya Admin.</p>
@@ -29,15 +60,174 @@
 
   <section>
     <h2>Kongeramo inkuru</h2>
-    <p class="note">Iyi form izakora nyuma yo guhuza Supabase no kugenzura ko winjiye nka Admin.</p>
-    <input id="title" placeholder="Umutwe w'inkuru">
-    <input id="category" placeholder="Icyiciro, urugero: Amakuru">
-    <textarea id="summary" placeholder="Incamake y'inkuru"></textarea>
-    <textarea id="body" placeholder="Andika inkuru yose"></textarea>
-    <input id="image" type="url" placeholder="URL y'ifoto">
-    <button id="save" disabled>Bika inkuru</button>
+    <form id="newsForm">
+      <input id="title" placeholder="Umutwe w'inkuru" required>
+      <input id="category" placeholder="Icyiciro, urugero: Amakuru"
+             value="amakuru" required>
+      <textarea id="summary" placeholder="Incamake y'inkuru"
+                rows="3"></textarea>
+      <textarea id="body" placeholder="Andika inkuru yose"
+                rows="8" required></textarea>
+      <input id="image" type="url" placeholder="URL y'ifoto (niba ihari)">
+      <input id="source" placeholder="Aho inkuru yaturutse (niba bihari)">
+      <input id="sourceUrl" type="url"
+             placeholder="Link y'inkomoko (niba ihari)">
+      <label>
+        <input id="published" type="checkbox" style="width:auto">
+        Tangaza inkuru ako kanya
+      </label>
+      <button id="save" type="submit" disabled>Bika inkuru</button>
+    </form>
   </section>
 
-  <p class="note">Ntushyire ijambo ry'ibanga cyangwa secret key muri code. Iyi paji iracyategereje guhuza na Supabase.</p>
+  <p class="note">
+    Injira ukoresheje konti ya Admin yemerewe muri Supabase.
+    Ntushyire Secret key muri iyi dosiye.
+  </p>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL =
+      'https://vnsgstwbsdqnyeqzuhyn.supabase.co';
+
+    const SUPABASE_KEY =
+      'sb_publishable_dkFWi_PDhKCxOXTsoaV_9w_T3oAoUvw';
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const statusMessage = document.getElementById('status');
+    const loginButton = document.getElementById('login');
+    const logoutButton = document.getElementById('logout');
+    const saveButton = document.getElementById('save');
+    const newsForm = document.getElementById('newsForm');
+
+    let adminVerified = false;
+
+    async function verifyAdmin() {
+      const { data: userResult, error: userError } =
+        await supabaseClient.auth.getUser();
+
+      if (userError || !userResult.user) {
+        adminVerified = false;
+        saveButton.disabled = true;
+        return false;
+      }
+
+      const { data, error } =
+        await supabaseClient.rpc('is_site_admin');
+
+      adminVerified = !error && data === true;
+      saveButton.disabled = !adminVerified;
+      return adminVerified;
+    }
+
+    loginButton.addEventListener('click', async () => {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        statusMessage.textContent =
+          'Andika email n’ijambo ry’ibanga.';
+        return;
+      }
+
+      loginButton.disabled = true;
+      statusMessage.textContent = 'Turimo kugenzura amakuru yawe...';
+
+      try {
+        const { error } =
+          await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+        if (error) {
+          statusMessage.textContent =
+            'Kwinjira byanze: ' + error.message;
+          return;
+        }
+
+        const allowed = await verifyAdmin();
+
+        if (!allowed) {
+          await supabaseClient.auth.signOut();
+          statusMessage.textContent =
+            'Iyi konti ntiyemewe nka Admin. Genzura uburenganzira muri Supabase.';
+          return;
+        }
+
+        statusMessage.textContent =
+          'Winjiye neza nka Admin. Ushobora kongeramo inkuru.';
+      } catch (error) {
+        statusMessage.textContent =
+          'Habaye ikibazo cyo guhuza na Supabase.';
+      } finally {
+        loginButton.disabled = false;
+      }
+    });
+
+    logoutButton.addEventListener('click', async () => {
+      await supabaseClient.auth.signOut();
+      adminVerified = false;
+      saveButton.disabled = true;
+      statusMessage.textContent = 'Wasohotse muri konti ya Admin.';
+    });
+
+    newsForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!adminVerified || !(await verifyAdmin())) {
+        statusMessage.textContent =
+          'Banza winjire nka Admin wemerewe.';
+        return;
+      }
+
+      saveButton.disabled = true;
+      statusMessage.textContent = 'Turimo kubika inkuru...';
+
+      const article = {
+        title: document.getElementById('title').value.trim(),
+        category: document.getElementById('category').value.trim(),
+        summary: document.getElementById('summary').value.trim(),
+        body: document.getElementById('body').value.trim(),
+        image_url: document.getElementById('image').value.trim(),
+        source: document.getElementById('source').value.trim(),
+        source_url: document.getElementById('sourceUrl').value.trim(),
+        published: document.getElementById('published').checked
+      };
+
+      try {
+        const { error } = await supabaseClient
+          .from('news')
+          .insert(article);
+
+        if (error) {
+          statusMessage.textContent =
+            'Inkuru ntiyabitswe: ' + error.message;
+          return;
+        }
+
+        newsForm.reset();
+        document.getElementById('category').value = 'amakuru';
+        statusMessage.textContent =
+          'Inkuru yabitswe neza muri Supabase!';
+      } catch (error) {
+        statusMessage.textContent =
+          'Habaye ikibazo mu kubika inkuru.';
+      } finally {
+        saveButton.disabled = !adminVerified;
+      }
+    });
+
+    verifyAdmin().then((allowed) => {
+      if (allowed) {
+        statusMessage.textContent =
+          'Konti ya Admin iracyafunguye.';
+      }
+    });
+  </script>
 </body>
 </html>
