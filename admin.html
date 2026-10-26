@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | ISANO KIGALI NEWS</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 760px; margin: 30px auto; padding: 16px; background: #f4f6f9; color: #172033; }
+    h1 { color: #123b70; }
+    section { background: white; padding: 20px; margin: 18px 0; border-radius: 10px; }
+    input, textarea, select, button { box-sizing: border-box; width: 100%; padding: 12px; margin: 8px 0; }
+    button { background: #123b70; color: white; border: 0; border-radius: 6px; cursor: pointer; }
+    .note { color: #555; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <h1>ISANO KIGALI NEWS</h1>
+  <p>Admin Dashboard</p>
+
+  <section>
+    <h2>Kwinjira muri Admin</h2>
+    <input id="email" type="email" placeholder="Email ya Admin">
+    <input id="password" type="password" placeholder="Ijambo ry'ibanga">
+    <button id="login">Injira</button>
+    <button id="logout">Sohoka</button>
+    <p id="status" role="status">Banza winjire muri konti ya Admin.</p>
+  </section>
+
+  <section>
+    <h2>Kongeramo inkuru</h2>
+    <p class="note">Iyi form izakora nyuma yo guhuza Supabase no kugenzura ko winjiye nka Admin.</p>
+    <input id="title" placeholder="Umutwe w'inkuru">
+    <input id="category" placeholder="Icyiciro, urugero: Amakuru">
+    <textarea id="summary" placeholder="Incamake y'inkuru"></textarea>
+    <textarea id="body" placeholder="Andika inkuru yose"></textarea>
+    <input id="image" type="url" placeholder="URL y'ifoto">
+    <button id="save" disabled>Bika inkuru</button>
+  </section>
+
+  <p class="note">Ntushyire ijambo ry'ibanga cyangwa secret key muri code. Iyi paji iracyategereje guhuza na Supabase.</p>
+</body>
+</html>
