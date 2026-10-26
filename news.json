@@ -1,0 +1,33 @@
+[
+  {
+    "title": "Murakaza neza kuri ISANO KIGALI NEWS",
+    "category": "amakuru",
+    "date": "2026-10-26",
+    "image": "",
+    "summary": "Iki ni ikinyamakuru cyo kuri internet gitangaza amakuru, ikoranabuhanga, uburezi, imikino, imyidagaduro n'ubucuruzi.",
+    "body": "Iyi ni inkuru y'ikaze. Hindura cyangwa usimbuze iyi ngero n'inkuru yawe yagenzuwe.",
+    "source": "ISANO KIGALI NEWS",
+    "url": "",
+    "featured": true
+  },
+  {
+    "title": "Ikoranabuhanga mu buzima bwa buri munsi",
+    "category": "ikoranabuhanga",
+    "date": "2026-10-26",
+    "image": "",
+    "summary": "Andika inkuru y'umwimerere ku ikoranabuhanga kandi ushyiremo amasoko yizewe.",
+    "body": "Ongeramo ibisobanuro birambuye hano.",
+    "source": "Andika inkomoko",
+    "url": ""
+  },
+  {
+    "title": "Kwiga no kwihugura mu gihe cy'ikoranabuhanga",
+    "category": "uburezi",
+    "date": "2026-10-26",
+    "image": "",
+    "summary": "Andika inkuru y'uburezi, amahirwe yo kwiga n'uburyo bwo kongera ubumenyi.",
+    "body": "Ongeramo inkuru yawe hano.",
+    "source": "Andika inkomoko",
+    "url": ""
+  }
+]

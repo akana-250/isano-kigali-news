@@ -1,0 +1,61 @@
+# ISANO KIGALI NEWS — uko ukoresha urubuga
+
+## Ibyo bikubiyemo
+- `index.html`: imiterere n'imikorere y'urubuga.
+- `news.json`: inkuru zigaragara ku rubuga. Ni yo uhindura kenshi kugira ngo wongere cyangwa uhindure amakuru.
+- `images/`: shyiramo amafoto y'inkuru.
+
+## Gushyira kuri GitHub Pages
+1. Kora public repository yitwa `isano-kigali-news` kuri GitHub.
+2. Upload `index.html`, `news.json`, na folder `images` (irimo README.txt).
+3. Kanda **Commit changes**.
+4. Jya kuri **Settings → Pages**.
+5. Munsi ya Build and deployment, hitamo **Deploy from a branch**, branch `main`, folder `/(root)`, hanyuma **Save**.
+6. Nyuma y'iminota mike, reba URL GitHub Pages iguhaye. Niba repository ari `isano-kigali-news`, izina rya URL rishingira ku izina rya GitHub account yawe.
+
+## Kongeramo inkuru nshya
+1. Fungura repository kuri GitHub.
+2. Kanda dosiye `news.json`, hanyuma pencil **Edit**.
+3. Ongera ikintu gishya imbere muri `[` na `]`. Koresha comma hagati y'inkuru.
+4. Urugero rw'inkuru:
+```json
+{
+  "title": "Umutwe w'inkuru",
+  "category": "amakuru",
+  "date": "2026-10-26",
+  "image": "images/inkuru-nshya.jpg",
+  "summary": "Incamake y'inkuru igaragara ku rupapuro rw'itangiriro.",
+  "body": "Ibisobanuro birambuye by'inkuru.",
+  "source": "Inkomoko y'amakuru",
+  "url": "https://urugero.rw/inkuru"
+}
+```
+5. Ibyiciro byemewe: `amakuru`, `ikoranabuhanga`, `uburezi`, `imikino`, `imyidagaduro`, `ubucuruzi`.
+6. Kanda **Commit changes**. Tegereza GitHub Pages kuvugurura urubuga.
+
+## Kongeramo ifoto
+1. Hitamo ifoto yawe ifite uburenganzira bwo kuyikoresha.
+2. Kuri GitHub, fungura folder `images` → **Add file → Upload files**.
+3. Upload ifoto, urugero `ikoranabuhanga.jpg`, ukande **Commit changes**.
+4. Muri `news.json`, shyiramo `"image": "images/ikoranabuhanga.jpg"` ku nkuru iboneye.
+5. Ifoto igomba kuba nto bihagije kugira ngo urubuga rufunguke vuba; gerageza JPG cyangwa WebP.
+
+## Guhindura urubuga
+- Hindura inkuru muri `news.json`.
+- Hindura amabara, menu, imyandikire cyangwa imiterere muri `index.html`.
+- Buri mpinduka ubike ukoresheje **Commit changes**.
+- Ushobora gukoresha **Preview** muri GitHub Codespaces cyangwa gukuramo dosiye ukayifungura muri browser kugira ngo uyigenzure.
+
+## Kwamamaza
+Urubuga rufite ahantu hateganyirijwe amatangazo y'abacuruzi. Ushobora gushyiramo banner yawe bwite mu `index.html` nyuma yo kumvikana n'umwamamaza.
+- Kwamamaza ku giti cyawe: koresha banner ifite link y'umucuruzi, kandi ugaragaze ko ari itangazo.
+- Google AdSense: ntushyiremo code y'amakuru y'ibinyoma. Banza usabe kwemererwa, hanyuma ushyire code Google iguha mu `index.html` nk'uko amabwiriza yayo abivuga.
+- Nta garanti ko AdSense izemera urubuga. Ongera inkuru z'umwimerere, amakuru y'ubwanditsi, Contact, About, Privacy Policy kandi ukurikize amabwiriza ya Google.
+
+## Ibyo iyi verisiyo itarakora
+- Nta dashboard yihariye yo kwandikira inkuru nk'uko bikorwa muri WordPress.
+- Form yo kwiyandikisha kuri email ni demo gusa; ntabwo ibika email.
+- Kugira ngo inkuru zongererwe kuri telefone nta guhindura dosiye, uzakenera CMS cyangwa serivisi yo hanze. GitHub Pages ubwayo ni hosting ya static site, ntabwo ifite database/server yo kwakira inkuru.
+
+## Inama ku mwanditsi
+Andika inkuru z'umwimerere, shyiraho itariki n'inkomoko, genzura amakuru mbere yo kuyatangaza, kandi ukoreshe amafoto ufitiye uburenganzira.
