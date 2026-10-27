@@ -1,126 +1,1126 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="rw">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102a43">
-  <meta name="description" content="ISANO KIGALI NEWS: amakuru y'u Rwanda n'isi, ikoranabuhanga, uburezi, imikino, imyidagaduro n'ubucuruzi.">
-  <title>ISANO KIGALI NEWS | Amakuru agezweho</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09264b">
+  <meta name="description" content="ISANO KIGALI NEWS — Amakuru atangirira hano. Amakuru agezweho mu Rwanda no ku isi.">
+  <title>ISANO KIGALI NEWS — Amakuru atangirira hano</title>
+
   <style>
-    :root{--navy:#102a43;--blue:#1769aa;--red:#e63946;--ink:#172b4d;--muted:#61758a;--paper:#f4f7fb;--line:#e2e8f0;--white:#fff}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
-    a{color:inherit;text-decoration:none}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}.wrap{width:min(1120px,92%);margin:auto}
-    .topbar{background:#0b1f33;color:#dce7f2;font-size:.84rem}.topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding:8px 0;flex-wrap:wrap}
-    .brandrow{background:#fff;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:13px;padding:20px 0}.logo{width:58px;height:58px;flex-shrink:0;border-radius:14px;background:linear-gradient(145deg,var(--blue),var(--navy));display:grid;place-items:center;color:#fff;font-weight:900;font-size:1.2rem}
-    .brand h1{font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.15;margin:0;color:var(--navy)}.brand p{margin:5px 0 0;color:var(--muted);font-size:.92rem}
-    nav{background:var(--navy);color:#fff}nav .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin}nav a{display:block;padding:13px 12px;white-space:nowrap;font-size:.9rem;font-weight:700;border-bottom:3px solid transparent}nav a:hover,nav a.active{background:#183c59;border-bottom-color:var(--red)}
-    .ticker{background:var(--red);color:#fff}.ticker .wrap{display:flex;gap:12px;align-items:center;padding:9px 0;font-size:.9rem}.ticker strong{background:#b91c2c;padding:3px 8px;border-radius:4px;flex-shrink:0}
-    main{padding:26px 0 44px}.hero-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:20px;margin-bottom:30px}
-    .feature,.story,.panel,.news-card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 4px 18px #102a4308}
-    .welcome-art{min-height:260px;background:linear-gradient(135deg,#0f3b60,#2b7a9b 55%,#f4a261);display:flex;align-items:flex-end;padding:24px;color:#fff}.welcome-art h2{font-size:clamp(1.5rem,3vw,2.15rem);line-height:1.2;margin:12px 0 8px}.welcome-art p{margin:0}
-    .tag{display:inline-block;background:var(--red);color:#fff;padding:4px 9px;border-radius:4px;font-size:.75rem;font-weight:800}.feature-body{padding:20px}.feature-body p{margin-bottom:0}
-    .side-list{display:grid;gap:14px}.story{display:grid;grid-template-columns:100px 1fr;min-height:120px}.story-art{background:linear-gradient(145deg,#d8e8f5,#87b9d8);display:grid;place-items:center;font-size:2rem}.story-body{padding:13px}.story h3{font-size:.98rem;line-height:1.35;margin:7px 0}.meta,.small{font-size:.8rem;color:var(--muted)}
-    .layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:22px;align-items:start}.section-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:15px}.section-title{display:flex;align-items:center;gap:10px;margin:0;font-size:1.3rem}.section-title:before{content:"";width:5px;height:25px;background:var(--red);border-radius:3px}
-    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.news-card{display:flex;flex-direction:column;min-width:0}.news-image{display:block;width:100%;height:190px;object-fit:cover;background:#dcecf8}.image-placeholder{height:190px;display:grid;place-items:center;font-size:3rem;background:linear-gradient(145deg,#dcecf8,#b6d3e7)}
-    .card-body{padding:16px;display:flex;flex-direction:column;align-items:flex-start;flex:1}.card-body h3{font-size:1.08rem;line-height:1.35;margin:10px 0 7px;overflow-wrap:anywhere}.card-body p{font-size:.92rem;color:var(--muted);margin:0 0 12px;overflow-wrap:anywhere}.card-footer{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px;width:100%}
-    .read-more{color:var(--blue);font-weight:700;font-size:.88rem;cursor:pointer;border:0;padding:0;background:transparent}.read-more:hover{text-decoration:underline}
-    .panel{padding:18px;margin-bottom:18px}.panel h3{margin:0 0 12px;font-size:1.1rem}.category-list{display:grid}.category-list a{padding:10px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}.category-list a:hover,.category-list a.active{color:var(--blue);font-weight:700}
-    .search{display:flex;gap:7px}.search input{min-width:0;width:100%;padding:11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}.search button,.primary{border:0;border-radius:7px;background:var(--blue);color:#fff;padding:10px 14px;font-weight:700;cursor:pointer}.search button:hover,.primary:hover{opacity:.9}
-    .status{display:none;padding:15px;margin:0 0 18px;border-radius:9px;background:#fff;border:1px solid var(--line);color:var(--muted)}.status.show{display:block}.empty{display:none;grid-column:1/-1;background:#fff;padding:24px;border-radius:10px;border:1px solid var(--line);color:var(--muted)}.empty.show{display:block}
-    .article-detail{display:none;margin-bottom:22px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;overflow-wrap:anywhere}.article-detail.show{display:block}.article-detail h2{line-height:1.3}.article-detail img{display:block;width:100%;max-height:480px;object-fit:contain;margin:18px auto;border-radius:9px;background:#f4f7fb}.article-content{white-space:pre-wrap;line-height:1.8}.back-button{display:inline-block;margin-top:14px;background:var(--navy);color:#fff;border:0;border-radius:7px;padding:10px 14px;cursor:pointer}
-    footer{background:#0b1f33;color:#dce7f2;padding:28px 0}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.foot p{margin:5px 0;color:#b9cad9;font-size:.9rem}.footlinks{display:flex;gap:14px;flex-wrap:wrap}.footlinks a:hover{text-decoration:underline}
-    @media(max-width:800px){.hero-grid,.layout{grid-template-columns:1fr}.side-list{grid-template-columns:repeat(2,minmax(0,1fr))}.story{grid-template-columns:80px 1fr}}
-    @media(max-width:520px){.side-list,.cards{grid-template-columns:1fr}.story{grid-template-columns:90px 1fr}.brand{padding:16px 0}.logo{width:49px;height:49px}.topbar .wrap{font-size:.78rem}.news-image,.image-placeholder{height:210px}}
+    :root {
+      --navy: #09264b;
+      --blue: #1267c5;
+      --red: #e52b36;
+      --light: #f3f6fa;
+      --text: #202b3c;
+      --muted: #68778b;
+      --border: #e0e6ee;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .container {
+      width: min(1200px, 94%);
+      margin: auto;
+    }
+
+    .topbar {
+      background: #061b35;
+      color: white;
+      padding: 7px 0;
+      font-size: 13px;
+    }
+
+    .topbar .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+    }
+
+    .brand-row {
+      padding: 22px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: clamp(23px, 4vw, 37px);
+      font-weight: 900;
+      letter-spacing: -.8px;
+      line-height: 1.2;
+    }
+
+    .brand span { color: #ffbd45; }
+
+    .tagline {
+      color: #d9e7fa;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .search {
+      display: flex;
+      gap: 6px;
+      max-width: 360px;
+      width: 100%;
+    }
+
+    .search input {
+      min-width: 0;
+      width: 100%;
+      padding: 11px;
+      border: 0;
+      border-radius: 5px;
+    }
+
+    .search button, .primary-btn {
+      background: var(--red);
+      color: white;
+      border: 0;
+      border-radius: 5px;
+      padding: 11px 15px;
+      font-weight: bold;
+    }
+
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: 0 2px 8px #00000008;
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 8px 0;
+      scrollbar-width: thin;
+    }
+
+    .nav-inner button {
+      flex-shrink: 0;
+      padding: 9px 12px;
+      background: transparent;
+      border: 0;
+      border-radius: 4px;
+      font-weight: bold;
+      color: var(--navy);
+    }
+
+    .nav-inner button:hover,
+    .nav-inner button.active {
+      background: var(--navy);
+      color: white;
+    }
+
+    .ticker {
+      background: var(--red);
+      color: white;
+      padding: 9px 0;
+      overflow: hidden;
+    }
+
+    .ticker-inner {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .ticker-label {
+      background: white;
+      color: var(--red);
+      font-weight: 900;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    #tickerText {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    main { padding: 22px 0 45px; }
+
+    .ad-slot {
+      min-height: 90px;
+      border: 1px dashed #b8c5d5;
+      background: #fff;
+      margin: 0 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 14px;
+      color: #7a8797;
+      border-radius: 5px;
+    }
+
+    .ad-slot small { display: block; }
+    .ad-slot strong { color: #566579; }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-left: 5px solid var(--red);
+      padding-left: 11px;
+      margin: 28px 0 15px;
+    }
+
+    .section-heading h2 {
+      font-size: 21px;
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .section-heading button {
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font-weight: bold;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(250px, 1fr);
+      gap: 18px;
+    }
+
+    .hero-main {
+      background: #101d2d;
+      color: white;
+      border-radius: 7px;
+      overflow: hidden;
+      position: relative;
+      min-height: 350px;
+    }
+
+    .hero-main img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      display: block;
+      opacity: .82;
+    }
+
+    .hero-caption {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 22px;
+      background: linear-gradient(transparent, #06111ff5);
+    }
+
+    .hero-caption h2 {
+      margin: 8px 0;
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.25;
+    }
+
+    .hero-caption p { margin: 6px 0; color: #e5edf7; }
+
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .side-story {
+      display: grid;
+      grid-template-columns: 105px 1fr;
+      gap: 12px;
+      background: white;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .side-story img {
+      width: 105px;
+      height: 95px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .side-story h3 {
+      font-size: 15px;
+      line-height: 1.35;
+      margin: 5px 0;
+    }
+
+    .category-label {
+      display: inline-block;
+      background: #e8f1ff;
+      color: #0757a6;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 3px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .hero-caption .meta { color: #e1e8f0; }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .news-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .news-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 22px #102a4614;
+    }
+
+    .news-card img {
+      display: block;
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #e3eaf2;
+    }
+
+    .card-content { padding: 14px; }
+
+    .card-content h3 {
+      font-size: 18px;
+      line-height: 1.4;
+      margin: 9px 0;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      color: #566579;
+      margin: 8px 0 12px;
+    }
+
+    .layout-two {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .popular-list {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .popular-item {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      cursor: pointer;
+    }
+
+    .popular-item:last-child { border-bottom: 0; }
+
+    .popular-number {
+      font-size: 24px;
+      color: var(--red);
+      font-weight: 900;
+    }
+
+    .popular-item h3 {
+      margin: 0 0 5px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .empty, .loading, .error {
+      background: white;
+      padding: 25px;
+      text-align: center;
+      border-radius: 6px;
+      color: var(--muted);
+    }
+
+    .error { color: #a21e2a; }
+
+    #articleView {
+      display: none;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: clamp(16px, 4vw, 36px);
+    }
+
+    .back-btn {
+      border: 0;
+      background: #e8f1ff;
+      color: var(--navy);
+      font-weight: bold;
+      padding: 10px 13px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    #articleTitle {
+      font-size: clamp(27px, 4vw, 42px);
+      line-height: 1.2;
+      color: var(--navy);
+      margin: 12px 0;
+    }
+
+    #articleImage {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin: 18px 0;
+    }
+
+    #articleBody {
+      font-size: 18px;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
+
+    #articleBody img { max-width: 100%; height: auto; }
+
+    .article-ad { margin: 25px 0; }
+
+    .comments {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 2px solid var(--border);
+    }
+
+    .comments h2 { color: var(--navy); }
+
+    .comment-form {
+      display: grid;
+      gap: 12px;
+      max-width: 650px;
+    }
+
+    .comment-form input,
+    .comment-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+    }
+
+    .comment-form textarea { min-height: 120px; resize: vertical; }
+
+    .comment {
+      border-bottom: 1px solid var(--border);
+      padding: 13px 0;
+    }
+
+    .comment p { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+    .notice { font-size: 13px; color: var(--muted); }
+
+    footer {
+      background: #061b35;
+      color: white;
+      padding: 30px 0;
+      margin-top: 20px;
+    }
+
+    footer p { color: #d3deeb; }
+
+    @media (max-width: 800px) {
+      .hero-grid, .layout-two { grid-template-columns: 1fr; }
+      .news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-side { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-main, .hero-main img { min-height: 300px; height: 300px; }
+    }
+
+    @media (max-width: 520px) {
+      .news-grid { grid-template-columns: 1fr; }
+      .hero-side { display: flex; }
+      .news-card img { height: 220px; }
+      .brand-row { align-items: stretch; }
+      .hero-caption { padding: 14px; }
+      .side-story { grid-template-columns: 95px 1fr; }
+      .side-story img { width: 95px; height: 88px; }
+    }
   </style>
 </head>
+
 <body>
-  <div class="topbar"><div class="wrap"><span>Amakuru yizewe • Mu Kinyarwanda</span><span id="today">ISANO KIGALI NEWS</span></div></div>
-  <header class="brandrow"><div class="wrap brand"><div class="logo">IKN</div><div><h1>ISANO KIGALI NEWS</h1><p>Amakuru, ubumenyi n'ibitekerezo byubaka.</p></div></div></header>
-  <nav aria-label="Ibyiciro by'amakuru"><div class="wrap" id="mainNavigation">
-    <a href="#ahabanza" data-category="all" class="active">Ahabanza</a><a href="#amakuru" data-category="amakuru">Amakuru</a><a href="#ikoranabuhanga" data-category="ikoranabuhanga">Ikoranabuhanga</a><a href="#uburezi" data-category="uburezi">Uburezi</a><a href="#imikino" data-category="imikino">Imikino</a><a href="#imyidagaduro" data-category="imyidagaduro">Imyidagaduro</a><a href="#ubucuruzi" data-category="ubucuruzi">Ubucuruzi</a>
-  </div></nav>
-  <div class="ticker"><div class="wrap"><strong>ISOMWE</strong><span>ISANO KIGALI NEWS — amakuru atangirira hano.</span></div></div>
-  <main class="wrap" id="ahabanza">
-    <section class="hero-grid">
-      <article class="feature"><div class="welcome-art"><div><span class="tag">Ikaze</span><h2>Murakaza neza kuri ISANO KIGALI NEWS</h2><p>Ahantu ho gukurikiranira amakuru n'ibitekerezo mu Kinyarwanda.</p></div></div><div class="feature-body"><div class="meta">ISANO KIGALI NEWS • AMAKURU YIZEWE</div><p>Dukurikirane amakuru, ikoranabuhanga, uburezi, imikino, imyidagaduro n'ubucuruzi.</p></div></article>
-      <div class="side-list">
-        <article class="story"><div class="story-art" aria-hidden="true">📰</div><div class="story-body"><span class="tag">Amakuru</span><h3>Amakuru y'u Rwanda n'isi</h3><div class="meta">Inkuru zigezweho</div></div></article>
-        <article class="story"><div class="story-art" aria-hidden="true">💻</div><div class="story-body"><span class="tag">Ikoranabuhanga</span><h3>Ikoranabuhanga mu buzima bwa buri munsi</h3><div class="meta">Ubumenyi n'udushya</div></div></article>
-        <article class="story"><div class="story-art" aria-hidden="true">📚</div><div class="story-body"><span class="tag">Uburezi</span><h3>Kwiga no kwihugura</h3><div class="meta">Kwiga ubuzima bwose</div></div></article>
+  <div class="topbar">
+    <div class="container">
+      <span id="todayDate">ISANO KIGALI NEWS</span>
+      <span>Amakuru atangirira hano.</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="container brand-row">
+      <a href="./" id="homeLink">
+        <div class="brand">ISANO KIGALI <span>NEWS</span></div>
+        <div class="tagline">Amakuru atangirira hano.</div>
+      </a>
+
+      <form class="search" id="searchForm">
+        <input id="searchInput" type="search"
+               placeholder="Shaka inkuru..." aria-label="Shaka inkuru">
+        <button type="submit">Shaka</button>
+      </form>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container nav-inner" id="categoryNav">
+      <button class="active" data-category="all">Ahabanza</button>
+      <button data-category="amakuru">Amakuru</button>
+      <button data-category="ikoranabuhanga">Ikoranabuhanga</button>
+      <button data-category="uburezi">Uburezi</button>
+      <button data-category="ubuzima">Ubuzima</button>
+      <button data-category="imikino">Imikino</button>
+      <button data-category="imyidagaduro">Imyidagaduro</button>
+      <button data-category="ubucuruzi">Ubucuruzi</button>
+      <button data-category="amahanga">Amahanga</button>
+    </div>
+  </nav>
+
+  <div class="ticker">
+    <div class="container ticker-inner">
+      <span class="ticker-label">AMAKURU</span>
+      <span id="tickerText">ISANO KIGALI NEWS — Amakuru atangirira hano.</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="ad-slot" aria-label="Umwanya w'itangazo">
+      <div><strong>AHO AMATANGAZO AZAJYA</strong>
+        <small>Umwanya w'itangazo ryawe</small></div>
+    </div>
+
+    <section id="homeView">
+      <div class="section-heading">
+        <h2 id="featuredHeading">INKURU Z'INGENZI</h2>
+        <span class="meta">ISANO KIGALI NEWS</span>
+      </div>
+
+      <div id="featuredArea" class="loading">Turimo kuzana inkuru...</div>
+
+      <div class="ad-slot" aria-label="Umwanya w'itangazo">
+        <div><strong>Kwamamaza hano</strong>
+          <small>Umwanya wagenewe abamamaza</small></div>
+      </div>
+
+      <div class="layout-two">
+        <section>
+          <div class="section-heading">
+            <h2 id="latestHeading">INKURU ZIGEZEHO</h2>
+            <button id="showAllBtn" type="button">Reba zose</button>
+          </div>
+          <div id="newsGrid" class="news-grid">
+            <div class="loading">Turimo kuzana inkuru...</div>
+          </div>
+          <div id="moreArea"></div>
+        </section>
+
+        <aside>
+          <div class="section-heading">
+            <h2>ISOMWE CYANE</h2>
+          </div>
+          <div class="popular-list" id="popularList">
+            <p class="notice">Imibare nyayo y'abasomye izagaragara nyuma yo guhuza uburyo bwo kubara abasomyi muri Supabase.</p>
+          </div>
+
+          <div class="ad-slot" style="min-height:250px" aria-label="Kwamamaza">
+            <div><strong>UMWANYA W'AMATANGAZO</strong>
+              <small>Kwamamaza ibikorwa byawe hano</small></div>
+          </div>
+        </aside>
       </div>
     </section>
-    <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
-    <section id="articleDetail" class="article-detail" aria-live="polite"></section>
-    <div class="layout">
-      <section>
-        <div class="section-heading"><h2 class="section-title" id="listHeading">Inkuru zigezweho</h2><span class="small" id="resultCount"></span></div>
-        <div class="cards" id="newsCards"></div>
-        <div class="empty" id="noResults"><strong id="emptyHeading">Nta nkuru zihari muri iki cyiciro ubu.</strong><p id="emptyDescription">Inkuru nshya zizagaragara hano.</p><button type="button" class="back-button" id="showAllButton">Reba inkuru zose</button></div>
-      </section>
-      <aside>
-        <div class="panel"><h3>Shakisha inkuru</h3><form class="search" id="searchForm"><input id="searchInput" type="search" placeholder="Andika ijambo..." aria-label="Shakisha inkuru"><button type="submit">Shakisha</button></form><button type="button" class="read-more" id="clearSearch" style="margin-top:12px">Kuraho ibyo washakishije</button></div>
-        <div class="panel"><h3>Ibyiciro</h3><div class="category-list" id="categoryList">
-          <a href="#amakuru" data-category="amakuru">Amakuru <span>›</span></a><a href="#ikoranabuhanga" data-category="ikoranabuhanga">Ikoranabuhanga <span>›</span></a><a href="#uburezi" data-category="uburezi">Uburezi <span>›</span></a><a href="#imikino" data-category="imikino">Imikino <span>›</span></a><a href="#imyidagaduro" data-category="imyidagaduro">Imyidagaduro <span>›</span></a><a href="#ubucuruzi" data-category="ubucuruzi">Ubucuruzi <span>›</span></a>
-        </div></div>
-        <div class="panel"><h3>Intego yacu</h3><p>Gutanga amakuru y'ingenzi, ubumenyi n'ibitekerezo bifasha abasomyi gusobanukirwa iby'ingenzi bibera mu Rwanda no ku isi.</p></div>
-      </aside>
-    </div>
+
+    <section id="articleView">
+      <button type="button" class="back-btn" id="backBtn">← Subira ku nkuru</button>
+
+      <div id="articleCategory" class="category-label">Amakuru</div>
+      <h1 id="articleTitle"></h1>
+      <div class="meta" id="articleMeta"></div>
+      <p id="articleSummary"></p>
+
+      <img id="articleImage" alt="" hidden>
+      <div class="ad-slot article-ad">
+        <div><strong>Kwamamaza hagati mu nkuru</strong>
+          <small>Umwanya w'itangazo</small></div>
+      </div>
+
+      <article id="articleBody"></article>
+
+      <div id="articleSource"></div>
+
+      <div class="comments">
+        <h2>Ibitekerezo by'abasomyi</h2>
+        <p class="notice">Soma inkuru, hanyuma utange igitekerezo cyawe. Ibitekerezo bizabikwa muri Supabase nyuma yo gushyiraho imiterere yabyo.</p>
+
+        <form class="comment-form" id="commentForm">
+          <label for="commentName">Amazina yawe</label>
+          <input id="commentName" maxlength="80" required
+                 placeholder="Andika amazina yawe">
+
+          <label for="commentText">Igitekerezo cyawe</label>
+          <textarea id="commentText" maxlength="3000" required
+                    placeholder="Andika igitekerezo cyawe hano..."></textarea>
+
+          <button class="primary-btn" type="submit">Ohereza igitekerezo</button>
+          <div id="commentMessage" class="notice" aria-live="polite"></div>
+        </form>
+
+        <div id="commentsList"></div>
+      </div>
+    </section>
   </main>
-  <footer><div class="wrap foot"><div><strong>ISANO KIGALI NEWS</strong><p>Amakuru, ubumenyi n'ibitekerezo byubaka.</p><p>© <span id="year"></span> ISANO KIGALI NEWS. Uburenganzira bwose burabitswe.</p></div><div class="footlinks"><a href="#ahabanza" data-category="all">Ahabanza</a><a href="#amakuru" data-category="amakuru">Amakuru</a><a href="#imyidagaduro" data-category="imyidagaduro">Imyidagaduro</a><a href="#ubucuruzi" data-category="ubucuruzi">Ubucuruzi</a></div></div></footer>
+
+  <footer>
+    <div class="container">
+      <div class="brand">ISANO KIGALI <span>NEWS</span></div>
+      <p>Amakuru atangirira hano.</p>
+      <p>Amakuru yizewe, agezweho kandi asobanutse.</p>
+      <small>© <span id="year"></span> ISANO KIGALI NEWS. Uburenganzira bwose burabitswe.</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
-    "use strict";
+    // SUPABASE CONFIGURATION
     const SUPABASE_URL = "https://vnsgstwbsdqnyeqzuhyn.supabase.co";
     const SUPABASE_KEY = "sb_publishable_dkFWi_PDhKCxOXTsoaV_9w_T3oAoUvw";
-    const CATEGORY_NAMES = {amakuru:"Amakuru",ikoranabuhanga:"Ikoranabuhanga",uburezi:"Uburezi",imikino:"Imikino",imyidagaduro:"Imyidagaduro",ubucuruzi:"Ubucuruzi"};
-    const CATEGORY_ICONS = {amakuru:"📰",ikoranabuhanga:"💻",uburezi:"📚",imikino:"⚽",imyidagaduro:"🎬",ubucuruzi:"📈"};
-    const state = {news:[],category:"all",search:"",loading:true,loadFailed:false};
-    const newsCards=document.getElementById("newsCards"),noResults=document.getElementById("noResults"),statusMessage=document.getElementById("statusMessage"),articleDetail=document.getElementById("articleDetail"),listHeading=document.getElementById("listHeading"),resultCount=document.getElementById("resultCount"),searchInput=document.getElementById("searchInput");
-    document.getElementById("year").textContent=new Date().getFullYear();
-    document.getElementById("today").textContent=new Intl.DateTimeFormat("rw-RW",{dateStyle:"full"}).format(new Date());
-    function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-    function safeURL(value){if(!value)return "";try{const u=new URL(value,window.location.href);return u.protocol==="https:"||u.protocol==="http:"?u.href:"";}catch{return "";}}
-    function normaliseCategory(value){const c=String(value??"").trim().toLocaleLowerCase("rw-RW").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[_\s-]+/g,"");const aliases={amakuru:"amakuru",ikoranabuhanga:"ikoranabuhanga",uburezi:"uburezi",imikino:"imikino",siporo:"imikino",imyidagaduro:"imyidagaduro",ubucuruzi:"ubucuruzi",ubukungu:"ubucuruzi"};return aliases[c]||c;}
-    function formatDate(value){if(!value)return "";const d=new Date(value);if(Number.isNaN(d.getTime()))return "";return new Intl.DateTimeFormat("rw-RW",{year:"numeric",month:"short",day:"numeric"}).format(d);}
-    function showStatus(message){statusMessage.textContent=message;statusMessage.className="status show";}
-    function hideStatus(){statusMessage.textContent="";statusMessage.className="status";}
-    async function loadNews(){
-      state.loading=true;state.loadFailed=false;newsCards.innerHTML="";noResults.classList.remove("show");hideStatus();
-      try{
-        const endpoint=SUPABASE_URL+"/rest/v1/news?select=id,title,category,summary,body,image_url,source,source_url,published,created_at&published=eq.true&order=created_at.desc";
-        const response=await fetch(endpoint,{method:"GET",headers:{"apikey":SUPABASE_KEY,"Accept":"application/json"}});
-        if(!response.ok){const detail=await response.text();throw new Error("Supabase HTTP "+response.status+" "+detail);}
-        const data=await response.json();if(!Array.isArray(data))throw new Error("Unexpected response format");
-        state.news=data.filter(x=>x&&x.title).map(x=>({...x,category:normaliseCategory(x.category)}));state.loading=false;renderNews();
-      }catch(error){console.error("Failed to load public news:",error);state.news=[];state.loading=false;state.loadFailed=true;renderNews();showStatus("Amakuru ntashoboye kugaragara muri aka kanya. Ongera ugerageze nyuma.");}
+
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const $ = id => document.getElementById(id);
+
+    const categoryNames = {
+      amakuru: "Amakuru",
+      ikoranabuhanga: "Ikoranabuhanga",
+      uburezi: "Uburezi",
+      ubuzima: "Ubuzima",
+      imikino: "Imikino",
+      siporo: "Imikino",
+      imyidagaduro: "Imyidagaduro",
+      ubucuruzi: "Ubucuruzi",
+      ubukungu: "Ubucuruzi",
+      imibereho: "Imibereho",
+      amahanga: "Amahanga"
+    };
+
+    let allNews = [];
+    let visibleNews = [];
+    let activeCategory = "all";
+    let currentArticle = null;
+    let searchTerm = "";
+    let showAll = false;
+
+    const fallbackImage =
+      "https://placehold.co/900x550/e8eef6/09264b?text=ISANO+KIGALI+NEWS";
+
+    function escapeHTML(value = "") {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
     }
-    function getFilteredNews(){return state.news.filter(item=>{const cat=state.category==="all"||normaliseCategory(item.category)===state.category;const text=[item.title,item.summary,item.body,item.category,item.source].join(" ").toLocaleLowerCase("rw-RW");return cat&&(!state.search||text.includes(state.search.toLocaleLowerCase("rw-RW")));});}
-    function renderNews(){
-      const filtered=getFilteredNews();listHeading.textContent=state.category==="all"?"Inkuru zigezweho":CATEGORY_NAMES[state.category]||"Inkuru";resultCount.textContent=filtered.length+" inkuru";newsCards.innerHTML="";
-      if(!filtered.length){noResults.classList.add("show");document.getElementById("emptyHeading").textContent=state.loadFailed?"Amakuru ntabonetse muri aka kanya.":"Nta nkuru zihari muri iki cyiciro ubu.";document.getElementById("emptyDescription").textContent=state.search?"Nta nkuru ihuye n'ijambo washakishije.":"Inkuru nshya zizagaragara hano.";document.getElementById("showAllButton").style.display=state.category==="all"&&!state.search?"none":"inline-block";return;}
-      noResults.classList.remove("show");const frag=document.createDocumentFragment();
-      filtered.forEach(item=>{
-        const card=document.createElement("article");card.className="news-card";const cat=CATEGORY_NAMES[item.category]||item.category||"Amakuru",icon=CATEGORY_ICONS[item.category]||"📰",imageURL=safeURL(item.image_url),date=formatDate(item.created_at),summary=item.summary||"",source=item.source||"";
-        const imageMarkup=imageURL?'<img class="news-image" src="'+escapeHTML(imageURL)+'" alt="'+escapeHTML(item.title)+'" loading="lazy" referrerpolicy="no-referrer">':'<div class="image-placeholder" aria-hidden="true">'+icon+'</div>';
-        card.innerHTML=`${imageMarkup}<div class="card-body"><span class="tag">${escapeHTML(cat)}</span><h3>${escapeHTML(item.title)}</h3>${summary?'<p>'+escapeHTML(summary)+'</p>':''}<div class="meta">${date?escapeHTML(date):""}${date&&source?" • ":""}${escapeHTML(source)}</div><div class="card-footer"><button type="button" class="read-more" data-open-article="${escapeHTML(item.id)}">Soma inkuru →</button></div></div>`;
-        const img=card.querySelector("img");if(img)img.addEventListener("error",()=>{const p=document.createElement("div");p.className="image-placeholder";p.textContent=icon;p.setAttribute("aria-hidden","true");img.replaceWith(p);},{once:true});frag.appendChild(card);
-      });newsCards.appendChild(frag);
+
+    function categoryKey(value = "") {
+      const key = String(value).trim().toLowerCase();
+      if (key === "siporo") return "imikino";
+      if (key === "ubukungu") return "ubucuruzi";
+      return key;
     }
-    function setCategory(category){state.category=category;articleDetail.classList.remove("show");articleDetail.innerHTML="";document.querySelectorAll("[data-category]").forEach(a=>{const active=a.dataset.category===category;if(a.closest("#mainNavigation")||a.closest("#categoryList"))a.classList.toggle("active",active);});renderNews();}
-    function openArticle(id){
-      const item=state.news.find(n=>String(n.id)===String(id));if(!item)return;const cat=CATEGORY_NAMES[item.category]||item.category||"Amakuru",imageURL=safeURL(item.image_url),sourceURL=safeURL(item.source_url),date=formatDate(item.created_at);
-      const imageMarkup=imageURL?'<img src="'+escapeHTML(imageURL)+'" alt="'+escapeHTML(item.title)+'" referrerpolicy="no-referrer">':"";
-      const sourceMarkup=sourceURL?'<p><strong>Inkomoko:</strong> <a href="'+escapeHTML(sourceURL)+'" target="_blank" rel="noopener noreferrer">'+escapeHTML(item.source||"Soma inkomoko")+'</a></p>':(item.source?'<p><strong>Inkomoko:</strong> '+escapeHTML(item.source)+'</p>':"");
-      articleDetail.innerHTML=`<span class="tag">${escapeHTML(cat)}</span><h2>${escapeHTML(item.title)}</h2><div class="meta">${date?escapeHTML(date):""}</div>${imageMarkup}${item.summary?'<p><strong>'+escapeHTML(item.summary)+'</strong></p>':""}<div class="article-content">${escapeHTML(item.body||item.summary||"")}</div>${sourceMarkup}<button type="button" class="back-button" id="closeArticle">Subira ku nkuru</button>`;
-      articleDetail.classList.add("show");document.getElementById("closeArticle").addEventListener("click",()=>{articleDetail.classList.remove("show");articleDetail.innerHTML="";newsCards.scrollIntoView({behavior:"smooth",block:"start"});});articleDetail.scrollIntoView({behavior:"smooth",block:"start"});
+
+    function categoryLabel(value = "") {
+      return categoryNames[String(value).toLowerCase()] || value || "Amakuru";
     }
-    document.getElementById("mainNavigation").addEventListener("click",e=>{const a=e.target.closest("[data-category]");if(!a)return;e.preventDefault();setCategory(a.dataset.category);});
-    document.getElementById("categoryList").addEventListener("click",e=>{const a=e.target.closest("[data-category]");if(!a)return;e.preventDefault();setCategory(a.dataset.category);});
-    document.querySelectorAll(".footlinks [data-category]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();setCategory(a.dataset.category);newsCards.scrollIntoView({behavior:"smooth",block:"start"});}));
-    document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();state.search=searchInput.value.trim();articleDetail.classList.remove("show");renderNews();newsCards.scrollIntoView({behavior:"smooth",block:"start"});});
-    searchInput.addEventListener("input",()=>{state.search=searchInput.value.trim();renderNews();});
-    document.getElementById("clearSearch").addEventListener("click",()=>{searchInput.value="";state.search="";renderNews();});
-    document.getElementById("showAllButton").addEventListener("click",()=>{state.search="";searchInput.value="";setCategory("all");});
+
+    function formatDate(value) {
+      if (!value) return "Itariki ntirashyirwaho";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "Itariki ntizwi";
+
+      return new Intl.DateTimeFormat("rw-RW", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function imageURL(url) {
+      return url && /^https?:\/\//i.test(url) ? url : fallbackImage;
+    }
+
+    function storyMeta(item) {
+      return `
+        <span>📅 ${escapeHTML(formatDate(item.created_at))}</span>
+        <span>👁 ${Number.isFinite(Number(item.view_count))
+          ? Number(item.view_count) + " abasomye"
+          : "Abasomye: ntibirabarwa"}</span>`;
+    }
+
+    function storyCard(item) {
+      return `
+        <article class="news-card" tabindex="0" role="button"
+          aria-label="Soma inkuru: ${escapeHTML(item.title)}"
+          data-open-article="${escapeHTML(item.id)}">
+          <img src="${escapeHTML(imageURL(item.image_url))}"
+            alt="${escapeHTML(item.title)}" loading="lazy"
+            onerror="this.onerror=null;this.src='${fallbackImage}'">
+          <div class="card-content">
+            <span class="category-label">${escapeHTML(categoryLabel(item.category))}</span>
+            <h3>${escapeHTML(item.title)}</h3>
+            <p>${escapeHTML(item.summary || "")}</p>
+            <div class="meta">${storyMeta(item)}</div>
+          </div>
+        </article>`;
+    }
+
+    function sideStory(item) {
+      return `
+        <article class="side-story" tabindex="0" role="button"
+          data-open-article="${escapeHTML(item.id)}">
+          <img src="${escapeHTML(imageURL(item.image_url))}"
+            alt="${escapeHTML(item.title)}" loading="lazy"
+            onerror="this.onerror=null;this.src='${fallbackImage}'">
+          <div>
+            <span class="category-label">${escapeHTML(categoryLabel(item.category))}</span>
+            <h3>${escapeHTML(item.title)}</h3>
+            <div class="meta">📅 ${escapeHTML(formatDate(item.created_at))}</div>
+          </div>
+        </article>`;
+    }
+
+    function renderFeatured(items) {
+      const featured = items.slice(0, 5);
+
+      if (!featured.length) {
+        $("featuredArea").innerHTML =
+          '<div class="empty">Nta nkuru zashyizwe ahagaragara ziraboneka.</div>';
+        return;
+      }
+
+      $("featuredArea").innerHTML = `
+        <div class="hero-grid">
+          <div class="hero-main" id="heroMain" tabindex="0" role="button">
+            <img id="heroImage" src="${escapeHTML(imageURL(featured[0].image_url))}"
+              alt="${escapeHTML(featured[0].title)}">
+            <div class="hero-caption">
+              <span class="category-label" id="heroCategory"></span>
+              <h2 id="heroTitle"></h2>
+              <p id="heroSummary"></p>
+              <div class="meta" id="heroMeta"></div>
+              <p><strong>ISOMWE — Soma inkuru yose →</strong></p>
+            </div>
+          </div>
+          <div class="hero-side" id="heroSide"></div>
+        </div>`;
+
+      let index = 0;
+
+      function setHero(next) {
+        index = next % featured.length;
+        const item = featured[index];
+
+        $("heroImage").src = imageURL(item.image_url);
+        $("heroImage").alt = item.title || "";
+        $("heroCategory").textContent = categoryLabel(item.category);
+        $("heroTitle").textContent = item.title || "";
+        $("heroSummary").textContent = item.summary || "";
+        $("heroMeta").innerHTML = storyMeta(item);
+        $("heroMain").dataset.openArticle = item.id;
+      }
+
+      setHero(0);
+      $("heroSide").innerHTML = featured.slice(1).map(sideStory).join("");
+
+      if (featured.length > 1) {
+        setInterval(() => {
+          if ($("homeView").style.display !== "none") {
+            setHero(index + 1);
+          }
+        }, 6000);
+      }
+    }
+
+    function renderPopular(items) {
+      const ranked = [...items]
+        .filter(item => Number.isFinite(Number(item.view_count)))
+        .sort((a, b) => Number(b.view_count) - Number(a.view_count))
+        .filter(item => Number(item.view_count) > 0)
+        .slice(0, 7);
+
+      if (!ranked.length) {
+        $("popularList").innerHTML =
+          '<p class="notice">Inkuru zisomwe cyane zizagaragara igihe imibare nyayo yo gusoma izaba ibitswe muri Supabase.</p>';
+        return;
+      }
+
+      $("popularList").innerHTML = ranked.map((item, i) => `
+        <article class="popular-item" tabindex="0" role="button"
+          data-open-article="${escapeHTML(item.id)}">
+          <span class="popular-number">${i + 1}</span>
+          <div>
+            <h3>${escapeHTML(item.title)}</h3>
+            <div class="meta">
+              <span>👁 ${Number(item.view_count)} abasomye</span>
+              <span>${escapeHTML(formatDate(item.created_at))}</span>
+            </div>
+          </div>
+        </article>`).join("");
+    }
+
+    function renderNews() {
+      visibleNews = allNews.filter(item => {
+        const matchesCategory =
+          activeCategory === "all" ||
+          categoryKey(item.category) === activeCategory;
+
+        const text = [
+          item.title, item.summary, item.body, item.category
+        ].join(" ").toLowerCase();
+
+        return matchesCategory && (!searchTerm || text.includes(searchTerm));
+      });
+
+      $("latestHeading").textContent = searchTerm
+        ? "IBISUBIZO BY'ISHYAKISHA"
+        : activeCategory === "all"
+          ? "INKURU ZIGEZEHO"
+          : "INKURU: " + categoryLabel(activeCategory).toUpperCase();
+
+      if (!visibleNews.length) {
+        $("newsGrid").innerHTML =
+          '<div class="empty">Nta nkuru ihuye n\'ibyo wahisemo.</div>';
+        $("moreArea").innerHTML = "";
+        $("featuredArea").style.display = "none";
+        return;
+      }
+
+      $("featuredArea").style.display = "";
+      renderFeatured(visibleNews);
+      renderPopular(allNews);
+
+      const list = showAll ? visibleNews : visibleNews.slice(0, 12);
+      $("newsGrid").innerHTML = list.map(storyCard).join("");
+
+      $("moreArea").innerHTML = visibleNews.length > 12 && !showAll
+        ? '<p style="text-align:center;margin-top:22px"><button class="primary-btn" id="loadMore">Reba izindi nkuru</button></p>'
+        : "";
+
+      const loadMore = $("loadMore");
+      if (loadMore) {
+        loadMore.addEventListener("click", () => {
+          showAll = true;
+          renderNews();
+        });
+      }
+
+      $("tickerText").textContent = visibleNews
+        .slice(0, 4).map(item => item.title).join("  •  ") ||
+        "ISANO KIGALI NEWS — Amakuru atangirira hano.";
+    }
+
+    async function loadNews() {
+      $("newsGrid").innerHTML =
+        '<div class="loading">Turimo kuzana inkuru...</div>';
+
+      const { data, error } = await db
+        .from("news")
+        .select("*")
+        .eq("published", true)
+        .order("created_at", { ascending: false })
+        .limit(200);
+
+      if (error) {
+        console.error("Supabase news error:", error);
+        $("featuredArea").innerHTML =
+          '<div class="error">Ntibishobotse kuzana inkuru muri Supabase. Reba internet, uburenganzira bwo gusoma (RLS), n\'uko Supabase ihujwe.</div>';
+        $("newsGrid").innerHTML = "";
+        $("popularList").innerHTML =
+          '<p class="notice">Ntibyashobotse kuzana inkuru. Reba uburenganzira bwo gusoma muri Supabase.</p>';
+        return;
+      }
+
+      allNews = data || [];
+      renderNews();
+    }
+
+    function showHome() {
+      $("articleView").style.display = "none";
+      $("homeView").style.display = "";
+      currentArticle = null;
+      history.pushState({ page: "home" }, "", location.pathname);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    async function openArticle(id) {
+      const item = allNews.find(story => String(story.id) === String(id));
+      if (!item) return;
+
+      currentArticle = item;
+      $("homeView").style.display = "none";
+      $("articleView").style.display = "block";
+
+      $("articleCategory").textContent = categoryLabel(item.category);
+      $("articleTitle").textContent = item.title || "";
+      $("articleMeta").innerHTML =
+        `<span>📅 ${escapeHTML(formatDate(item.created_at))}</span>
+         <span id="articleViews">👁 ${Number.isFinite(Number(item.view_count))
+           ? Number(item.view_count) + " abasomye"
+           : "Abasomye: ntibirabarwa"}</span>`;
+      $("articleSummary").textContent = item.summary || "";
+
+      if (item.image_url) {
+        $("articleImage").src = imageURL(item.image_url);
+        $("articleImage").alt = item.title || "";
+        $("articleImage").hidden = false;
+      } else {
+        $("articleImage").hidden = true;
+      }
+
+      // The article body is treated as plain text for safety.
+      $("articleBody").textContent = item.body || item.summary || "Nta nyandiko irashyirwaho.";
+
+      $("articleSource").innerHTML = item.source
+        ? `<p class="notice">Inkomoko: ${escapeHTML(item.source)}
+          ${item.source_url && /^https?:\/\//i.test(item.source_url)
+            ? ` — <a href="${escapeHTML(item.source_url)}" target="_blank" rel="noopener noreferrer">Sura inkomoko</a>`
+            : ""}</p>`
+        : "";
+
+      $("commentMessage").textContent = "";
+      $("commentText").value = "";
+      $("commentsList").innerHTML = '<p class="notice">Turimo kureba niba hari ibitekerezo...</p>';
+
+      history.pushState({ page: "article", id: item.id }, "",
+        "?article=" + encodeURIComponent(item.id));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      await loadComments(item.id);
+      await recordView(item);
+    }
+
+    async function recordView(item) {
+      // Requires a Supabase RPC named increment_news_views(p_news_id).
+      // Until that RPC is created, this website does not invent view counts.
+      const { data, error } = await db.rpc("increment_news_views", {
+        p_news_id: item.id
+      });
+
+      if (error) {
+        console.info("View counting is not configured yet:", error.message);
+        return;
+      }
+
+      const newCount = typeof data === "number"
+        ? data
+        : Number(data?.view_count);
+
+      if (Number.isFinite(newCount)) {
+        item.view_count = newCount;
+        $("articleViews").textContent = "👁 " + newCount + " abasomye";
+      }
+    }
+
+    async function loadComments(articleId) {
+      // Requires a table named article_comments.
+      const { data, error } = await db
+        .from("article_comments")
+        .select("id, name, comment, created_at")
+        .eq("news_id", articleId)
+        .eq("approved", true)
+        .order("created_at", { ascending: false })
+        .limit(100);
+
+      if (error) {
+        console.info("Comments table is not configured yet:", error.message);
+        $("commentsList").innerHTML =
+          '<p class="notice">Ibitekerezo ntibiraboneka. Hakenewe kubanza gushyiraho imiterere yabyo muri Supabase.</p>';
+        return;
+      }
+
+      if (!data || !data.length) {
+        $("commentsList").innerHTML =
+          '<p class="notice">Nta bitekerezo biratangwa kuri iyi nkuru. Ba uwa mbere!</p>';
+        return;
+      }
+
+      $("commentsList").innerHTML = data.map(comment => `
+        <div class="comment">
+          <strong>${escapeHTML(comment.name)}</strong>
+          <div class="meta">${escapeHTML(formatDate(comment.created_at))}</div>
+          <p>${escapeHTML(comment.comment)}</p>
+        </div>`).join("");
+    }
+
+    $("commentForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!currentArticle) return;
+
+      const name = $("commentName").value.trim();
+      const comment = $("commentText").value.trim();
+
+      if (!name || !comment) {
+        $("commentMessage").textContent =
+          "Uzuza amazina yawe n'igitekerezo mbere yo kohereza.";
+        return;
+      }
+
+      $("commentMessage").textContent = "Turimo kohereza igitekerezo...";
+
+      // Requires article_comments table, suitable RLS policies,
+      // and an approved column defaulting to false.
+      const { error } = await db.from("article_comments").insert({
+        news_id: currentArticle.id,
+        name,
+        comment
+      });
+
+      if (error) {
+        console.error("Comment submission error:", error);
+        $("commentMessage").textContent =
+          "Igitekerezo nticyoherejwe. Imiterere y'ibitekerezo muri Supabase iracyakeneye gushyirwaho.";
+        return;
+      }
+
+      $("commentText").value = "";
+      $("commentMessage").textContent =
+        "Igitekerezo cyakiriwe. Kizagaragara nyuma yo kwemezwa.";
+      await loadComments(currentArticle.id);
+    });
+
+    $("categoryNav").addEventListener("click", event => {
+      const button = event.target.closest("button[data-category]");
+      if (!button) return;
+
+      activeCategory = button.dataset.category;
+      searchTerm = "";
+      showAll = false;
+      $("searchInput").value = "";
+
+      $("categoryNav").querySelectorAll("button").forEach(btn => {
+        btn.classList.toggle("active", btn === button);
+      });
+
+      showHome();
+      renderNews();
+    });
+
+    $("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      searchTerm = $("searchInput").value.trim().toLowerCase();
+      showAll = false;
+      showHome();
+      renderNews();
+    });
+
+    $("showAllBtn").addEventListener("click", () => {
+      activeCategory = "all";
+      searchTerm = "";
+      showAll = true;
+      $("searchInput").value = "";
+
+      $("categoryNav").querySelectorAll("button").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.category === "all");
+      });
+
+      renderNews();
+    });
+
+    $("backBtn").addEventListener("click", showHome);
+    $("homeLink").addEventListener("click", event => {
+      event.preventDefault();
+      activeCategory = "all";
+      searchTerm = "";
+      showAll = false;
+      showHome();
+      renderNews();
+    });
+
+    // Open articles from cards, side stories and popular list.
+    document.addEventListener("click", event => {
+      const target = event.target.closest("[data-open-article]");
+      if (target) openArticle(target.dataset.openArticle);
+    });
+
+    document.addEventListener("keydown", event => {
+      if ((event.key === "Enter" || event.key === " ") &&
+          event.target.matches("[data-open-article]")) {
+        event.preventDefault();
+        openArticle(event.target.dataset.openArticle);
+      }
+    });
+
+    window.addEventListener("popstate", () => {
+      const params = new URLSearchParams(location.search);
+      const id = params.get("article");
+      if (id) openArticle(id);
+      else {
+        $("articleView").style.display = "none";
+        $("homeView").style.display = "";
+      }
+    });
+
+    $("todayDate").textContent = new Intl.DateTimeFormat("rw-RW", {
+      weekday: "long", day: "numeric", month: "long", year: "numeric"
+    }).format(new Date());
+
+    $("year").textContent = new Date().getFullYear();
+
     loadNews();
   </script>
 </body>
 </html>
+```
