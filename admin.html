@@ -55,9 +55,9 @@
         <label for="summary">Incamake</label><textarea id="summary" rows="3"></textarea>
         <label for="newsBody">Inkuru yose *</label><textarea id="newsBody" rows="9" required></textarea>
         <label for="newsImageFile">Hitamo ifoto yo muri mudasobwa</label>
-        <input id="newsImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+        <input id="newsImageFile" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif">
         <p class="help">Ifoto igomba kuba JPG, PNG, WEBP cyangwa GIF kandi ntirenze 5 MB.</p>
-        <div id="imagePreviewBox" class="hidden"><p><strong>Ifoto wahisemo:</strong></p><img id="newsImagePreview" alt="Ifoto wahisemo"></div>
+        <div id="imagePreviewBox" class="hidden"><p><strong>Amafoto wahisemo:</strong></p><div id="newsImagePreviews" style="display:flex;flex-wrap:wrap;gap:10px"></div></div>
         <label for="newsImage">Cyangwa URL y'ifoto isanzwe iri kuri internet</label><input id="newsImage" type="url" placeholder="https://example.com/image.jpg">
         <p class="help">Nuhitamo ifoto muri mudasobwa, ni yo izakoreshwa aho gukoresha URL wanditse.</p>
         <label for="source">Inkomoko y'inkuru</label><input id="source" maxlength="250">
@@ -72,9 +72,9 @@
         <input type="hidden" id="adId">
         <label for="adTitle">Umutwe w'itangazo *</label><input id="adTitle" required maxlength="250">
         <label for="adImageFile">Hitamo ifoto y'itangazo muri mudasobwa</label>
-        <input id="adImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+        <input id="adImageFile" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif">
         <p class="help">JPG, PNG, WEBP cyangwa GIF; ntirenze 5 MB.</p>
-        <div id="adImagePreviewBox" class="hidden"><p><strong>Ifoto y'itangazo wahisemo:</strong></p><img id="adImagePreview" alt="Ifoto y'itangazo" style="display:block;max-width:100%;max-height:300px;object-fit:contain;"></div>
+        <div id="adImagePreviewBox" class="hidden"><p><strong>Amafoto y’itangazo wahisemo:</strong></p><div id="adImagePreviews" style="display:flex;flex-wrap:wrap;gap:10px"></div></div>
         <label for="adImage">Cyangwa URL y'ifoto iri kuri internet *</label><input id="adImage" type="url" placeholder="https://example.com/ad.jpg">
         <label for="adTarget">Link izafunguka iyo bakanzeho *</label><input id="adTarget" type="url" required placeholder="https://example.com">
         <div class="row" style="margin-top:15px"><input id="adActive" type="checkbox" checked><label for="adActive">Itangazo rikore</label></div>
@@ -102,16 +102,16 @@
   const saveAdButton = $('saveAd');
   const newsImageFile = $('newsImageFile');
   const adImageFile = $('adImageFile');
-  const adImagePreview = $('adImagePreview');
+  const adImagePreviews = $('adImagePreviews');
   const adImagePreviewBox = $('adImagePreviewBox');
-  const newsImagePreview = $('newsImagePreview');
+  const newsImagePreviews = $('newsImagePreviews');
   const imagePreviewBox = $('imagePreviewBox');
   const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
   let client = null;
   let adminVerified = false;
   let busy = false;
-  let previewObjectUrl = null;
-  let adPreviewObjectUrl = null;
+  let previewObjectUrls = [];
+  let adPreviewObjectUrls = [];
 
   function message(text) { status.textContent = text; }
   function setDashboard(allowed) {
@@ -141,53 +141,55 @@
     return true;
   }
   function clearPreview() {
-    if (previewObjectUrl) { URL.revokeObjectURL(previewObjectUrl); previewObjectUrl = null; }
-    newsImagePreview.removeAttribute('src');
+    previewObjectUrls.forEach(url => URL.revokeObjectURL(url));
+    previewObjectUrls = [];
+    newsImagePreviews.replaceChildren();
     imagePreviewBox.classList.add('hidden');
   }
-  newsImageFile.addEventListener('change', () => {
-    clearPreview();
-    const file = newsImageFile.files && newsImageFile.files[0];
-    if (!file) return;
-    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      newsImageFile.value = '';
-      message('Hitamo ifoto ya JPG, PNG, WEBP cyangwa GIF.');
+  function renderFilePreviews(input, container, box, urlList, label) {
+    urlList.forEach(url => URL.revokeObjectURL(url));
+    urlList.length = 0;
+    container.replaceChildren();
+    const files = Array.from(input.files || []);
+    if (!files.length) { box.classList.add('hidden'); return; }
+    if (files.length > 20) {
+      input.value = '';
+      box.classList.add('hidden');
+      message('Hitamo amafoto atarenze 20 icyarimwe.');
       return;
     }
-    if (file.size > MAX_IMAGE_SIZE) {
-      newsImageFile.value = '';
-      message('Ifoto irengeje 5 MB. Hitamo ifoto ntoya.');
-      return;
+    for (const file of files) {
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type) || file.size > MAX_IMAGE_SIZE) {
+        input.value = '';
+        urlList.forEach(url => URL.revokeObjectURL(url));
+        urlList.length = 0;
+        container.replaceChildren();
+        box.classList.add('hidden');
+        message('Buri foto igomba kuba JPG, PNG, WEBP cyangwa GIF kandi itarengeje 5 MB.');
+        return;
+      }
     }
-    previewObjectUrl = URL.createObjectURL(file);
-    newsImagePreview.src = previewObjectUrl;
-    imagePreviewBox.classList.remove('hidden');
-    message('Ifoto wahisemo yiteguye kubikwa hamwe n’inkuru.');
-  });
+    for (const file of files) {
+      const url = URL.createObjectURL(file);
+      urlList.push(url);
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'width:130px;border:1px solid #cbd5e1;border-radius:8px;padding:6px;overflow-wrap:anywhere';
+      const img = document.createElement('img');
+      img.src = url; img.alt = label; img.style.cssText = 'width:100%;height:90px;object-fit:contain';
+      const name = document.createElement('small'); name.textContent = file.name;
+      wrap.append(img, name); container.append(wrap);
+    }
+    box.classList.remove('hidden');
+    message(files.length + ' amafoto yatoranyijwe.');
+  }
+  newsImageFile.addEventListener('change', () => renderFilePreviews(newsImageFile, newsImagePreviews, imagePreviewBox, previewObjectUrls, 'Ifoto y’inkuru'));
   function clearAdPreview() {
-    if (adPreviewObjectUrl) { URL.revokeObjectURL(adPreviewObjectUrl); adPreviewObjectUrl = null; }
-    adImagePreview.removeAttribute('src');
+    adPreviewObjectUrls.forEach(url => URL.revokeObjectURL(url));
+    adPreviewObjectUrls = [];
+    adImagePreviews.replaceChildren();
     adImagePreviewBox.classList.add('hidden');
   }
-  adImageFile.addEventListener('change', () => {
-    clearAdPreview();
-    const file = adImageFile.files && adImageFile.files[0];
-    if (!file) return;
-    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      adImageFile.value = '';
-      message('Hitamo ifoto ya JPG, PNG, WEBP cyangwa GIF.');
-      return;
-    }
-    if (file.size > MAX_IMAGE_SIZE) {
-      adImageFile.value = '';
-      message('Ifoto y’itangazo irengeje 5 MB.');
-      return;
-    }
-    adPreviewObjectUrl = URL.createObjectURL(file);
-    adImagePreview.src = adPreviewObjectUrl;
-    adImagePreviewBox.classList.remove('hidden');
-    message('Ifoto y’itangazo yiteguye kubikwa.');
-  });
+  adImageFile.addEventListener('change', () => renderFilePreviews(adImageFile, adImagePreviews, adImagePreviewBox, adPreviewObjectUrls, 'Ifoto y’itangazo'));
 
   if (!window.supabase) {
     message('Supabase ntiyafungutse. Reba internet wongere ugerageze.');
@@ -226,6 +228,15 @@
     const { data: publicData } = client.storage.from(STORAGE_BUCKET).getPublicUrl(data.path);
     if (!publicData || !publicData.publicUrl) throw new Error('URL y’ifoto y’itangazo ntiyabonetse.');
     return publicData.publicUrl;
+  }
+
+  async function uploadMany(files, folder) {
+    const urls = [];
+    for (const file of files) {
+      const url = folder === 'ads' ? await uploadAdImage(file) : await uploadNewsImage(file);
+      urls.push(url);
+    }
+    return urls;
   }
 
   loginButton.addEventListener('click', async () => {
@@ -269,19 +280,19 @@
     const body = $('newsBody').value.trim();
     const manualImageUrl = $('newsImage').value.trim();
     const sourceUrl = $('sourceUrl').value.trim();
-    const file = newsImageFile.files && newsImageFile.files[0];
+    const files = Array.from(newsImageFile.files || []);
     if (!title || !body) { message('Uzuza umutwe n’inkuru yose.'); return; }
     if (manualImageUrl && !safeUrl(manualImageUrl)) { message('URL y’ifoto si yo.'); return; }
     if (sourceUrl && !safeUrl(sourceUrl)) { message('Link y’inkomoko si yo.'); return; }
-    if (file && !ALLOWED_IMAGE_TYPES.includes(file.type)) { message('Ubwoko bw’ifoto ntibwemewe.'); return; }
-    if (file && file.size > MAX_IMAGE_SIZE) { message('Ifoto irengeje 5 MB. Hitamo ifoto ntoya.'); return; }
+    if (files.length > 20 || files.some(file => !ALLOWED_IMAGE_TYPES.includes(file.type) || file.size > MAX_IMAGE_SIZE)) { message('Hitamo amafoto atarenze 20; buri foto ibe JPG, PNG, WEBP cyangwa GIF kandi itarengeje 5 MB.'); return; }
     busy = true; saveNewsButton.disabled = true;
     try {
-      let imageUrl = manualImageUrl || null;
-      if (file) {
-        message('Turimo kohereza ifoto muri Supabase Storage...');
-        imageUrl = await uploadNewsImage(file);
+      let uploadedUrls = [];
+      if (files.length) {
+        message('Turimo kohereza amafoto muri Supabase Storage...');
+        uploadedUrls = await uploadMany(files, 'news');
       }
+      const imageUrl = uploadedUrls[0] || manualImageUrl || null;
       const article = {
         title,
         category: $('category').value,
@@ -293,10 +304,12 @@
         published: $('published').checked
       };
       message('Ifoto yiteguye. Turimo kubika inkuru...');
-      const { error } = await client.from('news').insert(article);
-      if (error) {
-        message('Inkuru ntiyabitswe: ' + error.message + (file ? ' Ifoto ishobora kuba yamaze koherezwa muri Storage; reba Storage mbere yo kongera kugerageza.' : ''));
-        return;
+      const { data: savedNews, error } = await client.from('news').insert(article).select('id').single();
+      if (error) { message('Inkuru ntiyabitswe: ' + error.message + (files.length ? ' Amafoto ashobora kuba yamaze koherezwa muri Storage.' : '')); return; }
+      if (uploadedUrls.length > 1) {
+        const extraRows = uploadedUrls.slice(1).map((url, index) => ({ news_id: String(savedNews.id), image_url: url, sort_order: index + 2 }));
+        const { error: galleryError } = await client.from('news_images').insert(extraRows);
+        if (galleryError) { message('Inkuru yabitswe, ariko andi mafoto ntiyabitswe: ' + galleryError.message + '. Kora SQL y’imbonerahamwe news_images mbere yo kongera kugerageza.'); return; }
       }
       $('newsForm').reset(); $('category').value = 'amakuru'; clearPreview();
       message(article.published ? 'Inkuru yabitswe kandi yatangajwe.' : 'Inkuru yabitswe ariko ntiyatangazwa.');
@@ -319,24 +332,31 @@
     if (!requireAdmin() || busy) return;
     if (!(await verifyAdmin())) { message('Ongera winjire nka Admin.'); return; }
     const title = $('adTitle').value.trim();
-    const selectedAdFile = adImageFile.files && adImageFile.files[0];
+    const selectedAdFiles = Array.from(adImageFile.files || []);
     let image_url = $('adImage').value.trim();
     const target_url = $('adTarget').value.trim();
     const active = $('adActive').checked;
     const id = $('adId').value;
-    if (!title || (!selectedAdFile && !safeUrl(image_url)) || !safeUrl(target_url)) { message('Uzuza umutwe, hitamo ifoto cyangwa wandike URL yayo, kandi wandike link nyayo.'); return; }
-    if (selectedAdFile && (!ALLOWED_IMAGE_TYPES.includes(selectedAdFile.type) || selectedAdFile.size > MAX_IMAGE_SIZE)) { message('Hitamo ifoto yemewe itarengeje 5 MB.'); return; }
+    if (!title || (!selectedAdFiles.length && !safeUrl(image_url)) || !safeUrl(target_url)) { message('Uzuza umutwe, hitamo ifoto cyangwa wandike URL yayo, kandi wandike link nyayo.'); return; }
+    if (selectedAdFiles.length > 20 || selectedAdFiles.some(file => !ALLOWED_IMAGE_TYPES.includes(file.type) || file.size > MAX_IMAGE_SIZE)) { message('Hitamo amafoto atarenze 20; buri foto ibe ubwoko bwemewe kandi itarengeje 5 MB.'); return; }
     busy = true; saveAdButton.disabled = true; message(id ? 'Turimo guhindura itangazo...' : 'Turimo kubika itangazo...');
     try {
-      if (selectedAdFile) {
-        message('Turimo kohereza ifoto y’itangazo muri Supabase Storage...');
-        image_url = await uploadAdImage(selectedAdFile);
+      let uploadedAdUrls = [];
+      if (selectedAdFiles.length) {
+        message('Turimo kohereza amafoto y’itangazo muri Supabase Storage...');
+        uploadedAdUrls = await uploadMany(selectedAdFiles, 'ads');
+        image_url = uploadedAdUrls[0];
       }
       const ad = { title, image_url, target_url, active };
       let result;
-      if (id) result = await client.from('advertisements').update(ad).eq('id', id);
-      else result = await client.from('advertisements').insert(ad);
+      if (id) result = await client.from('advertisements').update(ad).eq('id', id).select('id').single();
+      else result = await client.from('advertisements').insert(ad).select('id').single();
       if (result.error) { message('Itangazo ntiryabitswe: ' + result.error.message); return; }
+      if (uploadedAdUrls.length > 1) {
+        const extraAdRows = uploadedAdUrls.slice(1).map((url, index) => ({ advertisement_id: String(result.data.id), image_url: url, sort_order: index + 2 }));
+        const { error: adGalleryError } = await client.from('advertisement_images').insert(extraAdRows);
+        if (adGalleryError) { message('Itangazo ryabitswe, ariko andi mafoto ntiyabitswe: ' + adGalleryError.message + '. Kora SQL y’imbonerahamwe advertisement_images.'); return; }
+      }
       clearAdForm(); message(id ? 'Itangazo ryahinduwe.' : 'Itangazo ryabitswe.'); await loadAds();
     } catch { message('Habaye ikibazo mu kubika itangazo.'); }
     finally { busy = false; await verifyAdmin(); }
