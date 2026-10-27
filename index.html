@@ -7,6 +7,19 @@
 <meta name="theme-color" content="#092b52">
 <title>ISANO KIGALI NEWS | Amakuru agezweho</title>
 <meta name="description" content="ISANO KIGALI NEWS — amakuru agezweho mu Rwanda no ku isi.">
+<form class="search" id="searchForm">
+  <input id="searchInput" type="search" placeholder="Shakisha amakuru..." aria-label="Shakisha amakuru">
+  <button type="submit">Shakisha</button>
+</form>
+  
+<div class="header-actions">
+  <form class="search" id="searchForm">
+    <input id="searchInput" type="search" placeholder="Shakisha amakuru..." aria-label="Shakisha amakuru">
+    <button type="submit">Shakisha</button>
+  </form>
+
+  <a class="admin-button" href="admin.html">Admin</a>
+</div>
 
 <style>
 :root {
@@ -786,9 +799,42 @@ footer a { color:#f2b632; }
       loadNews(client)
     ]);
   }
+  
+.header-actions {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:min(470px,100%);
+}
+
+.header-actions .search {
+  flex:1;
+  min-width:0;
+}
+
+.admin-button {
+  display:inline-block;
+  background:var(--navy);
+  color:white;
+  padding:10px 14px;
+  border-radius:7px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.admin-button:hover {
+  background:var(--blue);
+}
+
+@media(max-width:540px) {
+  .header-actions {
+    width:100%;
+  }
+}
+
 
   startSite();
 })();
 </script>
 </body>
-</html>
+</html> 
