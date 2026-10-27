@@ -39,22 +39,22 @@ button { cursor:pointer; }
 .search { display:flex; width:min(350px,100%); }
 .search input { min-width:0; width:100%; padding:11px; border:1px solid #cbd5e1; border-radius:7px 0 0 7px; }
 .search button { border:0; color:white; background:var(--blue); padding:0 15px; border-radius:0 7px 7px 0; }
-  /* BUTO YA ADMIN — inyongera gusa */
-.admin-button {
-  display: inline-block;
-  background: var(--gold);
-  color: var(--navy);
-  padding: 10px 14px;
-  border: 2px solid var(--navy);
-  border-radius: 7px;
-  font-size: 13px;
-  font-weight: bold;
-  text-align: center;
-  white-space: nowrap;
-}
 
+/* ADDED: Admin button styling */
+.admin-button {
+  display:inline-block;
+  flex-shrink:0;
+  background:var(--gold);
+  color:var(--navy);
+  padding:10px 13px;
+  border-radius:7px;
+  font-size:13px;
+  font-weight:bold;
+  text-align:center;
+  border:1px solid #d99b12;
+}
 .admin-button:hover {
-  background: #ffd46a;
+  background:#e5a91f;
 }
 nav { background:var(--navy); color:white; }
 .nav-inner { display:flex; gap:4px; overflow-x:auto; }
@@ -245,14 +245,8 @@ footer a { color:#f2b632; }
       <h1>ISANO <span>KIGALI</span> NEWS</h1>
       <p>Amakuru agezweho mu Rwanda no ku isi</p>
     </a>
-    <form class="search" id="searchForm">
-      <input id="searchInput" type="search" placeholder="Shakisha amakuru..." aria-label="Shakisha amakuru">
-      <button type="submit">Shakisha</button>
-    </form>
-  </div>
-</header>
-    </a>
 
+    <!-- ADDED: Admin button; other header elements remain unchanged -->
     <a class="admin-button"
        href="https://akana-250.github.io/isano-kigali-news/admin.html"
        aria-label="Jya kuri Admin wongere amakuru">
@@ -260,6 +254,12 @@ footer a { color:#f2b632; }
     </a>
 
     <form class="search" id="searchForm">
+      <input id="searchInput" type="search" placeholder="Shakisha amakuru..." aria-label="Shakisha amakuru">
+      <button type="submit">Shakisha</button>
+    </form>
+  </div>
+</header>
+
 <nav>
   <div class="container nav-inner">
     <button class="active" data-category="all">Amakuru yose</button>
