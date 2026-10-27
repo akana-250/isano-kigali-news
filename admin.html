@@ -4,26 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ISANO KIGALI NEWS Admin Dashboard">
   <title>Admin Dashboard | ISANO KIGALI NEWS</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      padding: 20px;
+      padding: 18px;
       font-family: Arial, sans-serif;
       background: #f1f5f9;
       color: #172033;
       line-height: 1.6;
     }
 
-    .container {
-      max-width: 850px;
-      margin: 0 auto;
-    }
+    .container { max-width: 1000px; margin: auto; }
 
     header {
       background: #123b70;
@@ -33,197 +29,153 @@
       margin-bottom: 20px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 27px;
-    }
-
-    header p {
-      margin-bottom: 0;
-    }
+    header h1 { margin: 0; }
+    header p { margin-bottom: 0; }
 
     section {
       background: white;
-      padding: 24px;
+      padding: 22px;
       margin-bottom: 20px;
       border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+      box-shadow: 0 3px 12px #0000000c;
     }
 
-    h2 {
-      color: #123b70;
-      margin-top: 0;
-    }
+    h2 { color: #123b70; margin-top: 0; }
 
     label {
       display: block;
       font-weight: bold;
-      margin-top: 15px;
-      margin-bottom: 5px;
+      margin: 12px 0 5px;
     }
 
     input:not([type="checkbox"]),
-    textarea,
-    select {
+    textarea, select {
       display: block;
       width: 100%;
-      padding: 13px;
-      margin: 0;
+      padding: 12px;
       border: 1px solid #cbd5e1;
       border-radius: 7px;
+      font: inherit;
       background: white;
       color: #172033;
-      font: inherit;
     }
 
-    textarea {
-      resize: vertical;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      outline: 2px solid #3978c5;
-      border-color: #3978c5;
-    }
-
-    .field {
-      margin-bottom: 14px;
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 18px 0;
-      font-weight: normal;
-    }
-
-    .checkbox-row input {
-      width: 20px;
-      height: 20px;
-    }
+    textarea { resize: vertical; }
+    input[type="checkbox"] { width: 19px; height: 19px; }
 
     button {
-      display: inline-block;
-      padding: 12px 18px;
-      background: #123b70;
-      color: white;
+      padding: 11px 16px;
+      margin: 5px 5px 5px 0;
       border: 0;
       border-radius: 7px;
-      font-size: 16px;
+      background: #123b70;
+      color: white;
+      font-size: 15px;
       cursor: pointer;
-      margin: 5px 5px 5px 0;
     }
 
-    button:hover {
-      background: #205493;
-    }
+    button:hover { background: #205493; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .secondary { background: #64748b; }
+    .danger { background: #b91c1c; }
+    .success { background: #166534; }
 
-    button:disabled {
-      background: #94a3b8;
-      cursor: not-allowed;
-    }
-
-    .secondary {
-      background: #64748b;
-    }
-
+    .help { color: #64748b; font-size: 14px; }
     #status {
-      overflow-wrap: anywhere;
       padding: 12px;
       background: #f8fafc;
       border-radius: 7px;
+      overflow-wrap: anywhere;
     }
 
-    .help {
-      color: #64748b;
-      font-size: 14px;
+    .hidden { display: none !important; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
+    .tabs button { margin: 0; }
+    .row { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+    .row label { margin: 0; }
+    .item {
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 14px;
+      margin: 12px 0;
+      overflow-wrap: anywhere;
     }
 
-    .required {
-      color: #b91c1c;
+    .item img {
+      display: block;
+      width: 100%;
+      max-width: 260px;
+      max-height: 180px;
+      object-fit: contain;
+      margin: 8px 0;
+      background: #f8fafc;
     }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 20px;
+      background: #e2e8f0;
+      font-size: 13px;
+    }
+
+    .active-badge { background: #dcfce7; color: #166534; }
+    .inactive-badge { background: #fee2e2; color: #991b1b; }
 
     @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-
-      section {
-        padding: 16px;
-      }
-
-      header h1 {
-        font-size: 22px;
-      }
-
-      button {
-        width: 100%;
-        margin: 5px 0;
-      }
+      body { padding: 9px; }
+      section { padding: 15px; }
+      button { max-width: 100%; }
+      .tabs button { flex: 1 1 40%; }
     }
   </style>
 </head>
 
 <body>
 <div class="container">
-
   <header>
     <h1>ISANO KIGALI NEWS</h1>
-    <p>Admin Dashboard — Gucunga amakuru</p>
+    <p>Admin Dashboard — Gucunga amakuru n'amatangazo</p>
   </header>
 
   <section>
     <h2>Kwinjira muri Admin</h2>
 
-    <div class="field">
-      <label for="email">Email ya Admin</label>
-      <input id="email" type="email"
-             placeholder="Andika email yawe"
-             autocomplete="username">
-    </div>
+    <label for="email">Email ya Admin</label>
+    <input id="email" type="email" autocomplete="username"
+           placeholder="Email yawe">
 
-    <div class="field">
-      <label for="password">Ijambo ry'ibanga</label>
-      <input id="password" type="password"
-             placeholder="Andika ijambo ry'ibanga"
-             autocomplete="current-password">
-    </div>
+    <label for="password">Ijambo ry'ibanga</label>
+    <input id="password" type="password"
+           autocomplete="current-password"
+           placeholder="Ijambo ry'ibanga">
 
     <button id="login" type="button">Injira</button>
-    <button id="logout" type="button" class="secondary">
-      Sohoka
-    </button>
+    <button id="logout" type="button" class="secondary">Sohoka</button>
 
     <p id="status" role="status" aria-live="polite">
-      Banza winjire muri konti ya Admin.
+      Banza winjire nka Admin.
     </p>
   </section>
 
-  <section>
-    <h2>Kongeramo inkuru nshya</h2>
-
-    <p class="help">
-      Uzuza amakuru y'inkuru. Ibimenyetso * bigaragaza ahantu
-      ugomba kuzuza.
-    </p>
-
-    <form id="newsForm">
-
-      <div class="field">
-        <label for="title">
-          Umutwe w'inkuru <span class="required">*</span>
-        </label>
-        <input id="title" type="text"
-               placeholder="Urugero: Ikoranabuhanga mu Rwanda"
-               required>
+  <div id="dashboard" class="hidden">
+    <section>
+      <h2>Ibikorwa bya Admin</h2>
+      <div class="tabs">
+        <button type="button" data-tab="newsPanel">Inkuru</button>
+        <button type="button" data-tab="adsPanel">Amatangazo</button>
       </div>
+      <p class="help">Hitamo igice ushaka gukoresha.</p>
+    </section>
 
-      <div class="field">
-        <label for="category">
-          Icyiciro <span class="required">*</span>
-        </label>
+    <section id="newsPanel">
+      <h2>Kongeramo inkuru nshya</h2>
+
+      <form id="newsForm">
+        <label for="newsTitle">Umutwe w'inkuru *</label>
+        <input id="newsTitle" required maxlength="250">
+
+        <label for="category">Icyiciro *</label>
         <select id="category" required>
           <option value="amakuru">Amakuru</option>
           <option value="ikoranabuhanga">Ikoranabuhanga</option>
@@ -234,253 +186,516 @@
           <option value="imibereho">Imibereho</option>
           <option value="amahanga">Amakuru yo mu mahanga</option>
         </select>
-      </div>
 
-      <div class="field">
-        <label for="summary">Incamake y'inkuru</label>
-        <textarea id="summary" rows="3"
-          placeholder="Andika incamake ngufi y'inkuru..."></textarea>
-      </div>
+        <label for="summary">Incamake</label>
+        <textarea id="summary" rows="3"></textarea>
 
-      <div class="field">
-        <label for="body">
-          Inkuru yose <span class="required">*</span>
-        </label>
-        <textarea id="body" rows="10"
-          placeholder="Andika inkuru yose hano..."
-          required></textarea>
-      </div>
+        <label for="newsBody">Inkuru yose *</label>
+        <textarea id="newsBody" rows="9" required></textarea>
 
-      <div class="field">
-        <label for="image">URL y'ifoto</label>
-        <input id="image" type="url"
-          placeholder="https://urugero.com/ifoto.jpg">
-        <p class="help">
-          Shyiramo link y'ifoto iboneka kuri internet, niba ihari.
-        </p>
-      </div>
+        <label for="newsImage">URL y'ifoto</label>
+        <input id="newsImage" type="url"
+               placeholder="https://example.com/image.jpg">
 
-      <div class="field">
         <label for="source">Inkomoko y'inkuru</label>
-        <input id="source" type="text"
-          placeholder="Urugero: ISANO KIGALI NEWS">
-      </div>
+        <input id="source" maxlength="250">
 
-      <div class="field">
         <label for="sourceUrl">Link y'inkomoko</label>
         <input id="sourceUrl" type="url"
-          placeholder="https://urugero.com/inkuru">
-      </div>
+               placeholder="https://example.com/article">
 
-      <label class="checkbox-row" for="published">
-        <input id="published" type="checkbox">
-        Tangaza inkuru ako kanya
-      </label>
+        <div class="row" style="margin-top:15px">
+          <input id="published" type="checkbox">
+          <label for="published">Tangaza inkuru ako kanya</label>
+        </div>
 
-      <button id="save" type="submit" disabled>
-        Bika inkuru
-      </button>
+        <button id="saveNews" type="submit">Bika inkuru</button>
+        <button type="button" id="clearNews" class="secondary">
+          Sukura form
+        </button>
+      </form>
+    </section>
 
-      <button id="clear" type="button" class="secondary">
-        Siba ibyo nanditse muri form
-      </button>
+    <section id="adsPanel" class="hidden">
+      <h2>Gucunga amatangazo</h2>
+      <p class="help">
+        Uzuza amakuru y'itangazo. URL y'ifoto igomba kuba
+        iboneka kuri internet.
+      </p>
 
-    </form>
-  </section>
+      <form id="adForm">
+        <input type="hidden" id="adId">
+
+        <label for="adTitle">Umutwe w'itangazo *</label>
+        <input id="adTitle" required maxlength="250">
+
+        <label for="adImage">URL y'ifoto *</label>
+        <input id="adImage" type="url" required
+               placeholder="https://example.com/ad.jpg">
+
+        <label for="adTarget">Link izafunguka iyo bakanzeho *</label>
+        <input id="adTarget" type="url" required
+               placeholder="https://example.com">
+
+        <div class="row" style="margin-top:15px">
+          <input id="adActive" type="checkbox" checked>
+          <label for="adActive">Itangazo rikore</label>
+        </div>
+
+        <button id="saveAd" type="submit">Bika itangazo</button>
+        <button id="cancelEdit" type="button" class="secondary hidden">
+          Hagarika guhindura
+        </button>
+        <button id="refreshAds" type="button" class="secondary">
+          Ongera urebe amatangazo
+        </button>
+      </form>
+
+      <hr style="margin:24px 0;border:0;border-top:1px solid #e2e8f0">
+
+      <h2>Amatangazo yabitswe</h2>
+      <div id="adsList">Kanda "Ongera urebe amatangazo".</div>
+    </section>
+  </div>
 
   <p class="help">
-    Injira ukoresheje konti ya Admin yemerewe muri Supabase.
-    Ntushyire Secret key cyangwa service_role key muri iyi dosiye.
+    Koresha konti ya Admin yemerewe muri Supabase. Ntushyire
+    secret key cyangwa service_role key muri iyi dosiye.
   </p>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 (() => {
+  'use strict';
+
   const SUPABASE_URL =
     'https://vnsgstwbsdqnyeqzuhyn.supabase.co';
 
   const SUPABASE_KEY =
     'sb_publishable_dkFWi_PDhKCxOXTsoaV_9w_T3oAoUvw';
 
-  const statusMessage = document.getElementById('status');
-  const loginButton = document.getElementById('login');
-  const logoutButton = document.getElementById('logout');
-  const saveButton = document.getElementById('save');
-  const newsForm = document.getElementById('newsForm');
+  const $ = id => document.getElementById(id);
+  const status = $('status');
+  const dashboard = $('dashboard');
+  const loginButton = $('login');
+  const logoutButton = $('logout');
+  const saveNewsButton = $('saveNews');
+  const saveAdButton = $('saveAd');
 
-  let supabaseClient;
+  let client = null;
   let adminVerified = false;
+  let busy = false;
 
-  function showStatus(message) {
-    statusMessage.textContent = message;
+  function message(text) {
+    status.textContent = text;
   }
 
-  function setAdminState(allowed) {
+  function setDashboard(allowed) {
     adminVerified = allowed;
-    saveButton.disabled = !allowed;
+    dashboard.classList.toggle('hidden', !allowed);
+    saveNewsButton.disabled = !allowed;
+    saveAdButton.disabled = !allowed;
   }
 
-  if (!window.supabase) {
-    showStatus(
-      'Supabase ntiyafungutse. Reba internet wongere ufungure urubuga.'
-    );
-    loginButton.disabled = true;
-    return;
-  }
-
-  supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-  async function verifyAdmin() {
+  function safeUrl(value) {
+    if (!value) return false;
     try {
-      const { data: userResult, error: userError } =
-        await supabaseClient.auth.getUser();
-
-      if (userError || !userResult.user) {
-        setAdminState(false);
-        return false;
-      }
-
-      const { data, error } =
-        await supabaseClient.rpc('is_site_admin');
-
-      const allowed = !error && data === true;
-      setAdminState(allowed);
-      return allowed;
-    } catch (error) {
-      setAdminState(false);
+      const url = new URL(value);
+      return url.protocol === 'https:' || url.protocol === 'http:';
+    } catch {
       return false;
     }
   }
 
+  async function verifyAdmin() {
+    if (!client) return false;
+
+    try {
+      const { data: userData, error: userError } =
+        await client.auth.getUser();
+
+      if (userError || !userData.user) {
+        setDashboard(false);
+        return false;
+      }
+
+      const { data, error } =
+        await client.rpc('is_site_admin');
+
+      const allowed = !error && data === true;
+      setDashboard(allowed);
+      return allowed;
+    } catch {
+      setDashboard(false);
+      return false;
+    }
+  }
+
+  function requireAdmin() {
+    if (!adminVerified) {
+      message('Banza winjire nka Admin wemerewe.');
+      return false;
+    }
+    return true;
+  }
+
+  if (!window.supabase) {
+    message('Supabase ntiyafungutse. Reba internet wongere ugerageze.');
+    loginButton.disabled = true;
+    setDashboard(false);
+    return;
+  }
+
+  client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
   loginButton.addEventListener('click', async () => {
-    const email =
-      document.getElementById('email').value.trim();
-    const password =
-      document.getElementById('password').value;
+    if (busy) return;
+
+    const email = $('email').value.trim();
+    const password = $('password').value;
 
     if (!email || !password) {
-      showStatus('Andika email n’ijambo ry’ibanga.');
+      message('Andika email n’ijambo ry’ibanga.');
       return;
     }
 
+    busy = true;
     loginButton.disabled = true;
-    showStatus('Turimo kugenzura amakuru yawe...');
+    message('Turimo kugenzura amakuru yawe...');
 
     try {
-      const { error } =
-        await supabaseClient.auth.signInWithPassword({
-          email,
-          password
-        });
+      const { error } = await client.auth.signInWithPassword({
+        email,
+        password
+      });
 
       if (error) {
-        setAdminState(false);
-        showStatus('Kwinjira byanze: ' + error.message);
+        setDashboard(false);
+        message('Kwinjira byanze: ' + error.message);
         return;
       }
 
-      const allowed = await verifyAdmin();
-
-      if (!allowed) {
-        await supabaseClient.auth.signOut();
-        setAdminState(false);
-        showStatus(
-          'Iyi konti ntiyemewe nka Admin. Genzura uburenganzira muri Supabase.'
-        );
+      if (!(await verifyAdmin())) {
+        await client.auth.signOut();
+        setDashboard(false);
+        message('Iyi konti ntiyemewe nka Admin.');
         return;
       }
 
-      showStatus(
-        'Winjiye neza nka Admin. Ushobora kongeramo inkuru.'
-      );
-    } catch (error) {
-      showStatus('Habaye ikibazo cyo guhuza na Supabase.');
+      message('Winjiye neza nka Admin.');
+      await loadAds();
+    } catch {
+      message('Habaye ikibazo cyo guhuza na Supabase.');
     } finally {
+      busy = false;
       loginButton.disabled = false;
     }
   });
 
   logoutButton.addEventListener('click', async () => {
-    try {
-      await supabaseClient.auth.signOut();
-    } finally {
-      setAdminState(false);
-      showStatus('Wasohotse muri konti ya Admin.');
-    }
+    if (client) await client.auth.signOut();
+    setDashboard(false);
+    message('Wasohotse muri konti ya Admin.');
   });
 
-  document.getElementById('clear').addEventListener('click', () => {
-    newsForm.reset();
-    document.getElementById('category').value = 'amakuru';
-    showStatus('Form yasubijwe uko yari imeze mbere yo kwandika.');
+  document.querySelectorAll('[data-tab]').forEach(button => {
+    button.addEventListener('click', () => {
+      if (!requireAdmin()) return;
+
+      $('newsPanel').classList.toggle(
+        'hidden', button.dataset.tab !== 'newsPanel'
+      );
+      $('adsPanel').classList.toggle(
+        'hidden', button.dataset.tab !== 'adsPanel'
+      );
+
+      if (button.dataset.tab === 'adsPanel') loadAds();
+    });
   });
 
-  newsForm.addEventListener('submit', async (event) => {
+  $('clearNews').addEventListener('click', () => {
+    $('newsForm').reset();
+    $('category').value = 'amakuru';
+    message('Form y’inkuru yasukuwe.');
+  });
+
+  $('newsForm').addEventListener('submit', async event => {
     event.preventDefault();
+    if (!requireAdmin() || busy) return;
 
     if (!(await verifyAdmin())) {
-      showStatus('Banza winjire nka Admin wemerewe.');
+      message('Ongera winjire nka Admin.');
       return;
     }
 
     const article = {
-      title: document.getElementById('title').value.trim(),
-      category: document.getElementById('category').value,
-      summary: document.getElementById('summary').value.trim(),
-      body: document.getElementById('body').value.trim(),
-      image_url: document.getElementById('image').value.trim() || null,
-      source: document.getElementById('source').value.trim() || null,
-      source_url: document.getElementById('sourceUrl').value.trim() || null,
-      published: document.getElementById('published').checked
+      title: $('newsTitle').value.trim(),
+      category: $('category').value,
+      summary: $('summary').value.trim(),
+      body: $('newsBody').value.trim(),
+      image_url: $('newsImage').value.trim() || null,
+      source: $('source').value.trim() || null,
+      source_url: $('sourceUrl').value.trim() || null,
+      published: $('published').checked
     };
 
     if (!article.title || !article.body) {
-      showStatus('Uzuza umutwe n’inkuru yose.');
+      message('Uzuza umutwe n’inkuru yose.');
       return;
     }
 
-    saveButton.disabled = true;
-    showStatus('Turimo kubika inkuru...');
+    if (article.image_url && !safeUrl(article.image_url)) {
+      message('URL y’ifoto si yo.');
+      return;
+    }
+
+    if (article.source_url && !safeUrl(article.source_url)) {
+      message('Link y’inkomoko si yo.');
+      return;
+    }
+
+    busy = true;
+    saveNewsButton.disabled = true;
+    message('Turimo kubika inkuru...');
 
     try {
-      const { error } = await supabaseClient
-        .from('news')
-        .insert(article);
+      const { error } = await client.from('news').insert(article);
 
       if (error) {
-        showStatus('Inkuru ntiyabitswe: ' + error.message);
+        message('Inkuru ntiyabitswe: ' + error.message);
         return;
       }
 
-      newsForm.reset();
-      document.getElementById('category').value = 'amakuru';
-
-      showStatus(
-        article.published
-          ? 'Inkuru yabitswe kandi yatangajwe neza muri Supabase!'
-          : 'Inkuru yabitswe muri Supabase, ariko ntiratangazwa.'
-      );
-    } catch (error) {
-      showStatus('Habaye ikibazo mu kubika inkuru.');
+      $('newsForm').reset();
+      $('category').value = 'amakuru';
+      message(article.published
+        ? 'Inkuru yabitswe kandi yatangajwe.'
+        : 'Inkuru yabitswe ariko ntiyatangazwa.');
+    } catch {
+      message('Habaye ikibazo mu kubika inkuru.');
     } finally {
-      const allowed = await verifyAdmin();
-      saveButton.disabled = !allowed;
+      busy = false;
+      await verifyAdmin();
     }
   });
 
-  verifyAdmin().then((allowed) => {
+  function clearAdForm() {
+    $('adForm').reset();
+    $('adId').value = '';
+    $('adActive').checked = true;
+    $('cancelEdit').classList.add('hidden');
+    $('saveAd').textContent = 'Bika itangazo';
+  }
+
+  $('cancelEdit').addEventListener('click', () => {
+    clearAdForm();
+    message('Guhindura itangazo byahagaritswe.');
+  });
+
+  $('adForm').addEventListener('submit', async event => {
+    event.preventDefault();
+
+    if (!requireAdmin() || busy) return;
+    if (!(await verifyAdmin())) {
+      message('Ongera winjire nka Admin.');
+      return;
+    }
+
+    const title = $('adTitle').value.trim();
+    const image_url = $('adImage').value.trim();
+    const target_url = $('adTarget').value.trim();
+    const active = $('adActive').checked;
+    const id = $('adId').value;
+
+    if (!title || !safeUrl(image_url) || !safeUrl(target_url)) {
+      message('Uzuza umutwe, URL y’ifoto na link nyayo (HTTP/HTTPS).');
+      return;
+    }
+
+    const ad = { title, image_url, target_url, active };
+
+    busy = true;
+    saveAdButton.disabled = true;
+    message(id ? 'Turimo guhindura itangazo...' : 'Turimo kubika itangazo...');
+
+    try {
+      let result;
+
+      if (id) {
+        result = await client.from('advertisements')
+          .update(ad).eq('id', id);
+      } else {
+        result = await client.from('advertisements').insert(ad);
+      }
+
+      if (result.error) {
+        message('Itangazo ntiryabitswe: ' + result.error.message);
+        return;
+      }
+
+      clearAdForm();
+      message(id ? 'Itangazo ryahinduwe.' : 'Itangazo ryabitswe.');
+      await loadAds();
+    } catch {
+      message('Habaye ikibazo mu kubika itangazo.');
+    } finally {
+      busy = false;
+      await verifyAdmin();
+    }
+  });
+
+  function makeElement(tag, text, className) {
+    const element = document.createElement(tag);
+    if (text !== undefined) element.textContent = text;
+    if (className) element.className = className;
+    return element;
+  }
+
+  async function loadAds() {
+    if (!requireAdmin()) return;
+    if (!(await verifyAdmin())) {
+      message('Ongera winjire nka Admin.');
+      return;
+    }
+
+    const list = $('adsList');
+    list.replaceChildren(makeElement('p', 'Turimo kuzana amatangazo...'));
+
+    try {
+      const { data, error } = await client
+        .from('advertisements')
+        .select('id,title,image_url,target_url,active,created_at')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        list.replaceChildren(makeElement(
+          'p', 'Amatangazo ntiyabonetse: ' + error.message
+        ));
+        return;
+      }
+
+      list.replaceChildren();
+
+      if (!data || data.length === 0) {
+        list.append(makeElement('p', 'Nta matangazo arabikwa.'));
+        return;
+      }
+
+      for (const ad of data) {
+        const card = makeElement('div', undefined, 'item');
+        card.append(makeElement('h3', ad.title || 'Nta mutwe'));
+
+        card.append(makeElement(
+          'span',
+          ad.active ? 'Rikora' : 'Ntirikora',
+          'badge ' + (ad.active ? 'active-badge' : 'inactive-badge')
+        ));
+
+        if (ad.image_url && safeUrl(ad.image_url)) {
+          const img = document.createElement('img');
+          img.src = ad.image_url;
+          img.alt = ad.title || 'Ifoto y’itangazo';
+          img.loading = 'lazy';
+          img.referrerPolicy = 'no-referrer';
+          card.append(img);
+        }
+
+        if (ad.target_url && safeUrl(ad.target_url)) {
+          const link = document.createElement('a');
+          link.href = ad.target_url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = 'Reba link y’itangazo';
+          card.append(link);
+        }
+
+        const edit = makeElement('button', 'Hindura');
+        edit.type = 'button';
+        edit.addEventListener('click', () => {
+          $('adId').value = ad.id;
+          $('adTitle').value = ad.title || '';
+          $('adImage').value = ad.image_url || '';
+          $('adTarget').value = ad.target_url || '';
+          $('adActive').checked = !!ad.active;
+          $('saveAd').textContent = 'Bika impinduka';
+          $('cancelEdit').classList.remove('hidden');
+          $('adForm').scrollIntoView({ behavior: 'smooth' });
+          message('Uri guhindura itangazo: ' + ad.title);
+        });
+
+        const toggle = makeElement(
+          'button', ad.active ? 'Hagarika' : 'Kora',
+          ad.active ? 'secondary' : 'success'
+        );
+        toggle.type = 'button';
+        toggle.addEventListener('click', async () => {
+          if (!requireAdmin()) return;
+
+          const answer = confirm(
+            ad.active
+              ? 'Urashaka guhagarika iri tangazo?'
+              : 'Urashaka gukora iri tangazo?'
+          );
+          if (!answer) return;
+
+          const { error: updateError } = await client
+            .from('advertisements')
+            .update({ active: !ad.active })
+            .eq('id', ad.id);
+
+          if (updateError) {
+            message('Impinduka yanze: ' + updateError.message);
+          } else {
+            message('Imiterere y’itangazo yahinduwe.');
+            await loadAds();
+          }
+        });
+
+        const remove = makeElement('button', 'Siba', 'danger');
+        remove.type = 'button';
+        remove.addEventListener('click', async () => {
+          if (!requireAdmin()) return;
+
+          const answer = confirm(
+            'Urashaka gusiba itangazo "' + (ad.title || '') +
+            '"? Iki gikorwa ntigisubizwa inyuma.'
+          );
+          if (!answer) return;
+
+          const { error: deleteError } = await client
+            .from('advertisements')
+            .delete()
+            .eq('id', ad.id);
+
+          if (deleteError) {
+            message('Gusiba byanze: ' + deleteError.message);
+          } else {
+            message('Itangazo ryasibwe.');
+            await loadAds();
+          }
+        });
+
+        card.append(edit, toggle, remove);
+        list.append(card);
+      }
+    } catch {
+      list.replaceChildren(makeElement('p', 'Habaye ikibazo mu kuzana amatangazo.'));
+    }
+  }
+
+  $('refreshAds').addEventListener('click', loadAds);
+
+  verifyAdmin().then(async allowed => {
     if (allowed) {
-      showStatus('Konti ya Admin iracyafunguye.');
+      message('Konti ya Admin iracyafunguye.');
+      await loadAds();
     }
   });
 })();
 </script>
-
 </body>
 </html>
