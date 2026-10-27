@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="rw">
 <head>
@@ -53,29 +54,32 @@ main { padding:25px 0 40px; }
 .section-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; margin:0 0 15px; }
 .section-heading h2 { font-size:23px; margin:0; color:var(--navy); }
 .section-heading:after { content:""; height:3px; background:var(--gold); flex:1; max-width:90px; }
+
 .hero-grid { display:grid; grid-template-columns:1.6fr 1fr; gap:18px; }
 .featured {
   position:relative; min-height:350px; border-radius:12px; overflow:hidden;
   background:#173b5f; color:white; display:flex; align-items:flex-end;
 }
 .featured img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.featured:after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 10%,rgba(0,0,0,.85)); }
-.featured-content { z-index:1; padding:25px; width:100%; }
+.featured:after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 10%,rgba(0,0,0,.85)); pointer-events:none; }
+.featured-content { position:relative; z-index:1; padding:25px; width:100%; }
 .pill { display:inline-block; background:var(--gold); color:#172033; padding:4px 9px; border-radius:4px; font-size:12px; font-weight:bold; }
 .featured h2 { font-size:clamp(23px,3vw,34px); line-height:1.2; margin:12px 0; }
 .featured p { margin:0 0 12px; }
 .meta { color:var(--muted); font-size:12px; }
 .featured .meta { color:#e2e8f0; }
-.hero-controls { display:flex; gap:8px; margin-top:14px; }
+.hero-controls { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
 .hero-controls button { border:1px solid #ffffff99; background:#ffffff22; color:white; border-radius:5px; padding:6px 12px; }
 .side-stories { display:grid; grid-template-rows:1fr 1fr; gap:18px; }
 .side-story { display:grid; grid-template-columns:42% 1fr; background:white; border-radius:10px; overflow:hidden; min-height:160px; box-shadow:0 2px 8px #0f172a0b; }
 .side-story img { width:100%; height:100%; min-height:160px; object-fit:cover; background:#dbe4ee; }
 .side-story div { padding:13px; }
 .side-story h3 { font-size:17px; line-height:1.35; margin:7px 0; }
+
 .category-strip { display:flex; gap:9px; overflow-x:auto; padding:18px 0; }
 .category-strip button { border:1px solid #cbd5e1; background:white; padding:9px 15px; border-radius:25px; white-space:nowrap; }
 .category-strip button.active,.category-strip button:hover { background:var(--navy); color:white; border-color:var(--navy); }
+
 .news-layout { display:grid; grid-template-columns:minmax(0,1fr) 290px; gap:24px; margin-top:15px; }
 .news-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
 .news-card { background:white; border-radius:10px; overflow:hidden; box-shadow:0 2px 9px #0f172a0b; }
@@ -93,6 +97,18 @@ main { padding:25px 0 40px; }
 .status { background:white; border-radius:9px; padding:20px; margin:15px 0; color:var(--muted); }
 .load-more { display:block; margin:22px auto; border:0; background:var(--navy); color:white; padding:12px 22px; border-radius:7px; }
 .load-more:disabled { opacity:.5; cursor:not-allowed; }
+
+.advertisements-section { margin:0 0 28px; }
+.advertisements-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:16px; }
+.ad-card { background:white; border:1px solid #e2e8f0; border-radius:10px; overflow:hidden; box-shadow:0 2px 9px #0f172a0b; }
+.ad-card h3 { color:var(--navy); font-size:19px; margin:0; padding:14px 15px 8px; overflow-wrap:anywhere; }
+.ad-card img { display:block; width:100%; max-height:300px; object-fit:contain; background:#fff; }
+.ad-card-body { padding:0 15px 15px; }
+.ad-label { display:inline-block; margin:0 0 10px; padding:3px 7px; border-radius:3px; background:#fef3c7; color:#854d0e; font-size:11px; font-weight:bold; text-transform:uppercase; }
+.ad-link { display:inline-block; background:var(--blue); color:white; padding:9px 13px; border-radius:5px; font-weight:bold; font-size:14px; }
+.ad-link:hover { background:var(--navy); }
+.ad-message { background:white; border-radius:8px; padding:14px; color:var(--muted); }
+
 .article-view { background:white; padding:clamp(18px,4vw,40px); border-radius:12px; margin-top:20px; }
 .article-view h1 { color:var(--navy); font-size:clamp(26px,4vw,40px); line-height:1.2; }
 .article-view img { width:100%; max-height:500px; object-fit:cover; border-radius:9px; margin:15px 0; }
@@ -102,6 +118,7 @@ footer { background:#061c36; color:white; padding:30px 0; margin-top:30px; }
 footer p { color:#cbd5e1; }
 footer a { color:#f2b632; }
 .hidden { display:none!important; }
+
 @media(max-width:800px) {
   .hero-grid,.news-layout { grid-template-columns:1fr; }
   .side-stories { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
@@ -164,6 +181,16 @@ footer a { color:#f2b632; }
 
 <main class="container">
   <section id="homeView">
+
+    <!-- Amatangazo akora muri Supabase -->
+    <section id="advertisementsSection" class="advertisements-section hidden" aria-label="Amatangazo">
+      <div class="section-heading">
+        <h2>Kwamamaza</h2>
+      </div>
+      <div id="advertisementsGrid" class="advertisements-grid"></div>
+      <p id="advertisementsStatus" class="ad-message hidden"></p>
+    </section>
+
     <div class="section-heading"><h2>Inkuru z'ingenzi</h2></div>
     <div class="hero-grid">
       <article class="featured" id="featured">
@@ -236,6 +263,8 @@ footer a { color:#f2b632; }
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (() => {
+  'use strict';
+
   const SUPABASE_URL = 'https://vnsgstwbsdqnyeqzuhyn.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_dkFWi_PDhKCxOXTsoaV_9w_T3oAoUvw';
 
@@ -303,7 +332,7 @@ footer a { color:#f2b632; }
   function safeURL(value) {
     if (!value) return '';
     try {
-      const url = new URL(value, window.location.href);
+      const url = new URL(String(value), window.location.href);
       return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
     } catch {
       return '';
@@ -332,7 +361,9 @@ footer a { color:#f2b632; }
   }
 
   function storySummary(item) {
-    return item.summary || (item.body ? item.body.slice(0, 150) + (item.body.length > 150 ? '…' : '') : '');
+    return item.summary || (item.body
+      ? item.body.slice(0, 150) + (item.body.length > 150 ? '…' : '')
+      : '');
   }
 
   function storyCard(item) {
@@ -391,6 +422,7 @@ footer a { color:#f2b632; }
       featuredIndex = (featuredIndex - 1 + allNews.length) % allNews.length;
       renderFeatured();
     });
+
     $('nextFeature').addEventListener('click', () => {
       featuredIndex = (featuredIndex + 1) % allNews.length;
       renderFeatured();
@@ -468,6 +500,87 @@ footer a { color:#f2b632; }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /*
+   * AMATANGAZO:
+   * Soma amatangazo akora muri Supabase, uyerekane kuri homepage.
+   * Iyi function ntihindura cyangwa ngo isibe amakuru muri database.
+   */
+  async function loadAdvertisements(client) {
+    const section = $('advertisementsSection');
+    const grid = $('advertisementsGrid');
+    const status = $('advertisementsStatus');
+
+    grid.replaceChildren();
+    status.classList.add('hidden');
+
+    try {
+      const { data, error } = await client
+        .from('advertisements')
+        .select('id,title,image_url,target_url,active,created_at')
+        .eq('active', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      if (!data || data.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+
+      data.forEach(ad => {
+        const card = document.createElement('article');
+        card.className = 'ad-card';
+
+        const title = document.createElement('h3');
+        title.textContent = ad.title || 'Itangazo';
+        card.appendChild(title);
+
+        const label = document.createElement('div');
+        label.className = 'ad-card-body';
+
+        const badge = document.createElement('span');
+        badge.className = 'ad-label';
+        badge.textContent = 'Itangazo';
+        label.appendChild(badge);
+
+        const imageURL = safeURL(ad.image_url);
+        const targetURL = safeURL(ad.target_url);
+
+        if (imageURL) {
+          const image = document.createElement('img');
+          image.src = imageURL;
+          image.alt = ad.title || 'Itangazo rya ISANO KIGALI NEWS';
+          image.loading = 'lazy';
+          image.onerror = () => {
+            image.remove();
+          };
+          card.appendChild(image);
+        }
+
+        if (targetURL) {
+          const link = document.createElement('a');
+          link.className = 'ad-link';
+          link.href = targetURL;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = 'Reba itangazo';
+          label.appendChild(link);
+        }
+
+        card.appendChild(label);
+        grid.appendChild(card);
+      });
+
+      section.classList.remove('hidden');
+    } catch (error) {
+      console.error('Supabase advertisements error:', error);
+      section.classList.add('hidden');
+      status.textContent =
+        'Ntibyashobotse kuzana amatangazo. Reba internet n’amategeko ya Supabase RLS.';
+      status.classList.remove('hidden');
+    }
+  }
+
   document.addEventListener('click', event => {
     const categoryButton = event.target.closest('[data-category]');
     if (categoryButton) {
@@ -519,6 +632,7 @@ footer a { color:#f2b632; }
 
   function startCarousel() {
     if (carouselTimer) clearInterval(carouselTimer);
+
     if (allNews.length > 1) {
       carouselTimer = setInterval(() => {
         featuredIndex = (featuredIndex + 1) % allNews.length;
@@ -527,14 +641,7 @@ footer a { color:#f2b632; }
     }
   }
 
-  async function loadNews() {
-    if (!window.supabase) {
-      newsStatus.textContent = 'Supabase ntiyafungutse. Reba internet wongere ugerageze.';
-      return;
-    }
-
-    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
+  async function loadNews(client) {
     try {
       const { data, error } = await client
         .from('news')
@@ -546,6 +653,7 @@ footer a { color:#f2b632; }
       if (error) throw error;
 
       allNews = (data || []).filter(item => item.title);
+
       $('tickerText').textContent = allNews[0]
         ? allNews[0].title
         : 'Nta nkuru nshya zatangajwe kugeza ubu.';
@@ -555,9 +663,13 @@ footer a { color:#f2b632; }
       applyFilters();
       startCarousel();
 
-      const hash = decodeURIComponent(window.location.hash || '');
+      const hash = window.location.hash || '';
       if (hash.startsWith('#article-')) {
-        openArticle(hash.slice('#article-'.length));
+        try {
+          openArticle(decodeURIComponent(hash.slice('#article-'.length)));
+        } catch {
+          // Niba hash idasomeka, homepage irakomeza gukora.
+        }
       }
     } catch (error) {
       console.error('Supabase news error:', error);
@@ -568,7 +680,26 @@ footer a { color:#f2b632; }
     }
   }
 
-  loadNews();
+  async function startSite() {
+    if (!window.supabase) {
+      newsStatus.classList.remove('hidden');
+      newsStatus.textContent =
+        'Supabase ntiyafungutse. Reba internet wongere ugerageze.';
+      $('tickerText').textContent = 'Supabase ntiyafungutse.';
+      return;
+    }
+
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Amatangazo n'inkuru birageragezwa ukwabyo.
+    // Ikibazo cy'amatangazo ntigihagarika kuzana inkuru.
+    await Promise.allSettled([
+      loadAdvertisements(client),
+      loadNews(client)
+    ]);
+  }
+
+  startSite();
 })();
 </script>
 </body>
