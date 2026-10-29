@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="rw">
 <head>
@@ -89,21 +90,6 @@ button { cursor:pointer; }
   border-radius:0 7px 7px 0;
 }
 
-.admin-button {
-  display:inline-block;
-  flex-shrink:0;
-  background:var(--gold);
-  color:var(--navy);
-  padding:10px 13px;
-  border-radius:7px;
-  font-size:13px;
-  font-weight:bold;
-  text-align:center;
-  border:1px solid #d99b12;
-}
-
-.admin-button:hover { background:#e5a91f; }
-
 nav { background:var(--navy); color:white; }
 
 .nav-inner {
@@ -171,7 +157,7 @@ main { padding:22px 0 40px; }
 
 .hidden { display:none!important; }
 
-/* IMYANYA 3 Y'AMATANGAZO */
+/* AMATANGAZO */
 .ad-placement {
   background:white;
   border:1px solid #e2e8f0;
@@ -205,11 +191,17 @@ main { padding:22px 0 40px; }
 
 #adTop img { max-height:110px; }
 
-#adSidebar img { max-height:250px; }
-
 #adFeedSection {
   grid-column:1 / -1;
   width:100%;
+}
+
+#adSidebarSection1 img,
+#adSidebarSection2 img,
+#adSidebarSection3 img {
+  max-height:250px;
+  width:100%;
+  object-fit:contain;
 }
 
 .ad-placement .ad-caption {
@@ -491,12 +483,35 @@ footer a { color:#f2b632; }
 
 @media(max-width:800px) {
   .hero-grid,.news-layout { grid-template-columns:1fr; }
+
   .side-stories {
     grid-template-columns:1fr 1fr;
     grid-template-rows:auto;
   }
+
   .side-story { grid-template-columns:1fr; }
-  .side-story img { height:130px; min-height:130px; }
+
+  .side-story img {
+    height:130px;
+    min-height:130px;
+  }
+
+  .news-layout aside {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    align-items:start;
+  }
+
+  .news-layout aside > .sidebar-box,
+  .news-layout aside > .ad-placement {
+    margin-bottom:0;
+  }
+
+  .news-layout aside > .sidebar-box:first-child,
+  .news-layout aside > .sidebar-box:last-child {
+    grid-column:1 / -1;
+  }
 }
 
 @media(max-width:540px) {
@@ -504,14 +519,39 @@ footer a { color:#f2b632; }
     align-items:flex-start;
     flex-direction:column;
   }
+
   .search { width:100%; }
-  .side-stories,.news-grid { grid-template-columns:1fr; }
+
+  .side-stories,.news-grid {
+    grid-template-columns:1fr;
+  }
+
   .featured { min-height:330px; }
+
   .side-story { grid-template-columns:38% 1fr; }
-  .side-story img { height:100%; min-height:140px; }
+
+  .side-story img {
+    height:100%;
+    min-height:140px;
+  }
+
   .news-card img { height:210px; }
-  .ad-placement { padding:6px; margin-bottom:12px; }
+
+  .ad-placement {
+    padding:6px;
+    margin-bottom:12px;
+  }
+
   .ad-placement img { max-height:110px; }
+
+  .news-layout aside {
+    grid-template-columns:1fr;
+  }
+
+  .news-layout aside > .sidebar-box:first-child,
+  .news-layout aside > .sidebar-box:last-child {
+    grid-column:auto;
+  }
 }
 </style>
 </head>
@@ -565,7 +605,7 @@ footer a { color:#f2b632; }
 
 <section id="homeView">
 
-  <!-- ITANGAZO RYA 1: HEJURU Y'INKURU -->
+  <!-- ITANGAZO RYA HEJURU -->
   <section id="adTopSection" class="ad-placement hidden"
     aria-label="Kwamamaza hejuru">
     <span class="ad-label">Kwamamaza</span>
@@ -612,7 +652,7 @@ footer a { color:#f2b632; }
 
       <div id="newsGrid" class="news-grid"></div>
 
-      <!-- ITANGAZO RYA 2: RISHYIRWA HAGATI MU NKURU -->
+      <!-- ITANGAZO RIRI HAGATI MU NKURU -->
       <section id="adFeedSection" class="ad-placement hidden"
         aria-label="Kwamamaza hagati mu nkuru">
         <span class="ad-label">Kwamamaza</span>
@@ -639,11 +679,25 @@ footer a { color:#f2b632; }
         </div>
       </div>
 
-      <!-- ITANGAZO RYA 3: KU RUHANDE -->
-      <section id="adSidebarSection" class="ad-placement hidden"
-        aria-label="Kwamamaza ku ruhande">
+      <!-- ITANGAZO RYA 1 KU RUHANDE -->
+      <section id="adSidebarSection1" class="ad-placement hidden"
+        aria-label="Kwamamaza ku ruhande 1">
         <span class="ad-label">Kwamamaza</span>
-        <div id="adSidebar"></div>
+        <div id="adSidebar1"></div>
+      </section>
+
+      <!-- ITANGAZO RYA 2 KU RUHANDE -->
+      <section id="adSidebarSection2" class="ad-placement hidden"
+        aria-label="Kwamamaza ku ruhande 2">
+        <span class="ad-label">Kwamamaza</span>
+        <div id="adSidebar2"></div>
+      </section>
+
+      <!-- ITANGAZO RYA 3 KU RUHANDE -->
+      <section id="adSidebarSection3" class="ad-placement hidden"
+        aria-label="Kwamamaza ku ruhande 3">
+        <span class="ad-label">Kwamamaza</span>
+        <div id="adSidebar3"></div>
       </section>
 
       <div class="sidebar-box">
@@ -708,6 +762,8 @@ let visibleCount = 8;
 let featuredIndex = 0;
 let carouselTimer = null;
 let adItems = [];
+
+const adTimers = {};
 
 /* ITARIKI */
 $('today').textContent = new Intl.DateTimeFormat('rw-RW', {
@@ -902,7 +958,7 @@ function renderFeatured() {
   };
 }
 
-/* GUSHYIRA AMATANGAZO MU MYANYA YAYO */
+/* KUGARAGAZA ITANGAZO */
 function renderAdInto(containerId, sectionId, ad) {
   const container = $(containerId);
   const section = $(sectionId);
@@ -936,7 +992,7 @@ function renderAdInto(containerId, sectionId, ad) {
     link.href = targetURL;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.setAttribute('aria-label',ad.title || 'Reba itangazo');
+    link.setAttribute('aria-label', ad.title || 'Reba itangazo');
     link.appendChild(image);
     container.appendChild(link);
   } else {
@@ -946,7 +1002,41 @@ function renderAdInto(containerId, sectionId, ad) {
   section.classList.remove('hidden');
 }
 
-/* KUVANA AMATANGAZO MURI SUPABASE */
+/* GUHINDURANYA AMATANGAZO BURI MASEGONDA 5 */
+function startRotatingAd(containerId, sectionId, startIndex = 0) {
+  if (adTimers[containerId]) {
+    clearInterval(adTimers[containerId]);
+    delete adTimers[containerId];
+  }
+
+  if (!adItems.length) {
+    renderAdInto(containerId, sectionId, null);
+    return;
+  }
+
+  let index = startIndex % adItems.length;
+
+  function showCurrentAd() {
+    if (!adItems.length) {
+      renderAdInto(containerId, sectionId, null);
+      return;
+    }
+
+    index = index % adItems.length;
+
+    renderAdInto(containerId, sectionId, adItems[index]);
+
+    index = (index + 1) % adItems.length;
+  }
+
+  showCurrentAd();
+
+  if (adItems.length > 1) {
+    adTimers[containerId] = setInterval(showCurrentAd, 5000);
+  }
+}
+
+/* KUZANA AMATANGAZO MURI SUPABASE */
 async function loadAdvertisements(client) {
   try {
     const {data,error} = await client
@@ -959,19 +1049,17 @@ async function loadAdvertisements(client) {
 
     adItems = (data || []).filter(ad => safeURL(ad.image_url));
 
-    /*
-      Itangazo rya mbere: hejuru y'inkuru.
-      Itangazo rya kabiri: hagati mu nkuru.
-      Itangazo rya gatatu: ku ruhande.
+    /* Itangazo ryo hejuru */
+    startRotatingAd('adTop','adTopSection',0);
 
-      Niba hari amatangazo make, ashobora kugaragara
-      mu myanya irenze umwe.
-    */
-    renderAdInto('adTop','adTopSection',adItems[0] || null);
-    renderAdInto('adFeed','adFeedSection',adItems[1] || adItems[0] || null);
-    renderAdInto('adSidebar','adSidebarSection',adItems[2] || adItems[0] || null);
+    /* Itangazo hagati mu nkuru */
+    startRotatingAd('adFeed','adFeedSection',1);
 
-    /* Kongera gushyira itangazo hagati mu nkuru */
+    /* Amatangazo 3 yo ku ruhande */
+    startRotatingAd('adSidebar1','adSidebarSection1',0);
+    startRotatingAd('adSidebar2','adSidebarSection2',1);
+    startRotatingAd('adSidebar3','adSidebarSection3',2);
+
     renderNews();
 
   } catch (error) {
@@ -979,25 +1067,10 @@ async function loadAdvertisements(client) {
 
     renderAdInto('adTop','adTopSection',null);
     renderAdInto('adFeed','adFeedSection',null);
-    renderAdInto('adSidebar','adSidebarSection',null);
+    renderAdInto('adSidebar1','adSidebarSection1',null);
+    renderAdInto('adSidebar2','adSidebarSection2',null);
+    renderAdInto('adSidebar3','adSidebarSection3',null);
   }
-}
-
-/* GUSHYIRA ITANGAZO HAGATI MU NKURU */
-function placeFeedAd() {
-  const adSection = $('adFeedSection');
-
-  if (!adSection || adSection.classList.contains('hidden')) {
-    return;
-  }
-
-  /*
-    Ryinjizwa nyuma y'inkuru ya kane.
-    Niba inkuru ari nke, rijya ku musozo w'urutonde.
-  */
-  const position = Math.min(4,newsGrid.children.length);
-
-  newsGrid.insertBefore(adSection,newsGrid.children[position] || null);
 }
 
 /* GUSHYAKISHA NO GUSHYIRA MU BYICIRO */
@@ -1022,11 +1095,13 @@ function applyFilters() {
 
 /* KUGARAGAZA AMAKURU N'ITANGAZO RYO HAGATI */
 function renderNews() {
-  /*
-    Tubika reference y'itangazo mbere yo gusubiramo
-    urutonde rw'inkuru kugira ngo ritazimira.
-  */
   const feedAd = $('adFeedSection');
+
+  /*
+    Kurikura mu grid mbere yo kongera gushushanya inkuru.
+    Ibi bituma itangazo ritazimira.
+  */
+  if (feedAd) feedAd.remove();
 
   newsGrid.innerHTML = '';
 
@@ -1038,14 +1113,15 @@ function renderNews() {
       : 'Nta nkuru yatangajwe ibonetse. Reba niba inkuru muri Admin zashyizwe kuri “Tangaza inkuru ako kanya”.';
   }
 
-  newsGrid.innerHTML = filteredNews
-    .slice(0,visibleCount)
+  const visibleNews = filteredNews.slice(0,visibleCount);
+
+  newsGrid.innerHTML = visibleNews
     .map(storyCard)
     .join('');
 
   /*
-    Itangazo rigaragara hagati mu nkuru iyo hari inkuru
-    zihagije. Iyo rihari, rishyirwa nyuma y'inkuru enye.
+    Itangazo rishyirwa nyuma y'inkuru ya kane.
+    Niba inkuru ari nke, rishyirwa ku musozo.
   */
   if (feedAd && !feedAd.classList.contains('hidden')) {
     const position = Math.min(4,newsGrid.children.length);
