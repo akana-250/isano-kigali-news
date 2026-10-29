@@ -29,6 +29,9 @@
     .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; background: #e2e8f0; font-size: 13px; }
     .active-badge { background: #dcfce7; color: #166534; } .inactive-badge { background: #fee2e2; color: #991b1b; }
     #newsImagePreview { display: block; max-width: 100%; max-height: 320px; object-fit: contain; margin: 10px 0; border-radius: 8px; background: #f8fafc; }
+    .news-tools { display:grid; grid-template-columns: 2fr 1fr; gap:10px; margin:12px 0; }
+    .meta { color:#64748b; font-size:13px; margin:6px 0; }
+    @media (max-width:600px) { .news-tools { grid-template-columns:1fr; } }
     @media (max-width: 600px) { body { padding: 9px; } section { padding: 15px; } button { max-width: 100%; } .tabs button { flex: 1 1 40%; } }
   </style>
 </head>
@@ -45,8 +48,9 @@
   <div id="dashboard" class="hidden">
     <section><h2>Ibikorwa bya Admin</h2><div class="tabs"><button type="button" data-tab="newsPanel">Inkuru</button><button type="button" data-tab="adsPanel">Amatangazo</button></div><p class="help">Hitamo igice ushaka gukoresha.</p></section>
     <section id="newsPanel">
-      <h2>Kongeramo inkuru nshya</h2>
+      <h2 id="newsFormHeading">Kongeramo inkuru nshya</h2>
       <form id="newsForm">
+        <input type="hidden" id="newsId">
         <label for="newsTitle">Umutwe w'inkuru *</label><input id="newsTitle" required maxlength="250">
         <label for="category">Icyiciro *</label>
         <select id="category" required>
@@ -63,8 +67,16 @@
         <label for="source">Inkomoko y'inkuru</label><input id="source" maxlength="250">
         <label for="sourceUrl">Link y'inkomoko</label><input id="sourceUrl" type="url" placeholder="https://example.com/article">
         <div class="row" style="margin-top:15px"><input id="published" type="checkbox"><label for="published">Tangaza inkuru ako kanya</label></div>
-        <button id="saveNews" type="submit">Bika inkuru</button><button type="button" id="clearNews" class="secondary">Sukura form</button>
+        <button id="saveNews" type="submit">Bika inkuru</button><button type="button" id="clearNews" class="secondary">Sukura form</button><button type="button" id="cancelNewsEdit" class="secondary hidden">Hagarika guhindura</button>
       </form>
+      <hr style="margin:24px 0;border:0;border-top:1px solid #e2e8f0">
+      <h2>Inkuru zabitswe</h2>
+      <div class="news-tools">
+        <input id="newsSearch" type="search" placeholder="Shakisha umutwe cyangwa amagambo..." aria-label="Shakisha inkuru">
+        <select id="newsFilter" aria-label="Akayunguruzo k'inkuru"><option value="all">Inkuru zose</option><option value="published">Izo yatangajwe</option><option value="draft">Draft / izitaratangazwa</option></select>
+      </div>
+      <button type="button" id="refreshNews" class="secondary">Ongera urebe inkuru</button>
+      <div id="newsList" aria-live="polite">Inkuru zizagaragara hano nyuma yo kwinjira nka Admin.</div>
     </section>
     <section id="adsPanel" class="hidden">
       <h2>Gucunga amatangazo</h2><p class="help">Uzuza amakuru y'itangazo. URL y'ifoto igomba kuba iboneka kuri internet.</p>
@@ -100,6 +112,7 @@
   const logoutButton = $('logout');
   const saveNewsButton = $('saveNews');
   const saveAdButton = $('saveAd');
+  const newsList = $('newsList');
   const newsImageFile = $('newsImageFile');
   const adImageFile = $('adImageFile');
   const adImagePreviews = $('adImagePreviews');
@@ -251,7 +264,7 @@
       if (!(await verifyAdmin())) {
         await client.auth.signOut(); setDashboard(false); message('Iyi konti ntiyemewe nka Admin.'); return;
       }
-      message('Winjiye neza nka Admin.'); await loadAds();
+      message('Winjiye neza nka Admin.'); await loadNews(); await loadAds();
     } catch { message('Habaye ikibazo cyo guhuza na Supabase.'); }
     finally { busy = false; loginButton.disabled = false; }
   });
@@ -265,12 +278,18 @@
       $('newsPanel').classList.toggle('hidden', button.dataset.tab !== 'newsPanel');
       $('adsPanel').classList.toggle('hidden', button.dataset.tab !== 'adsPanel');
       if (button.dataset.tab === 'adsPanel') loadAds();
+      if (button.dataset.tab === 'newsPanel') loadNews();
     });
   });
-  $('clearNews').addEventListener('click', () => {
-    $('newsForm').reset(); $('category').value = 'amakuru'; clearPreview();
-    message('Form y’inkuru yasukuwe.');
-  });
+  function clearNewsForm() {
+    $('newsForm').reset(); $('newsId').value = ''; $('category').value = 'amakuru'; clearPreview();
+    $('newsFormHeading').textContent = 'Kongeramo inkuru nshya';
+    $('saveNews').textContent = 'Bika inkuru';
+    $('cancelNewsEdit').classList.add('hidden');
+    newsImageFile.value = '';
+  }
+  $('clearNews').addEventListener('click', () => { clearNewsForm(); message('Form y’inkuru yasukuwe.'); });
+  $('cancelNewsEdit').addEventListener('click', () => { clearNewsForm(); message('Guhindura inkuru byahagaritswe.'); });
 
   $('newsForm').addEventListener('submit', async event => {
     event.preventDefault();
@@ -292,7 +311,8 @@
         message('Turimo kohereza amafoto muri Supabase Storage...');
         uploadedUrls = await uploadMany(files, 'news');
       }
-      const imageUrl = uploadedUrls[0] || manualImageUrl || null;
+      const editingId = $('newsId').value;
+      const imageUrl = uploadedUrls[0] || manualImageUrl || (editingId ? $('newsImage').dataset.originalUrl || null : null);
       const article = {
         title,
         category: $('category').value,
@@ -304,15 +324,23 @@
         published: $('published').checked
       };
       message('Ifoto yiteguye. Turimo kubika inkuru...');
-      const { data: savedNews, error } = await client.from('news').insert(article).select('id').single();
+      let savedNews, error;
+      if (editingId) {
+        const result = await client.from('news').update(article).eq('id', editingId).select('id').single();
+        savedNews = result.data; error = result.error;
+      } else {
+        const result = await client.from('news').insert(article).select('id').single();
+        savedNews = result.data; error = result.error;
+      }
       if (error) { message('Inkuru ntiyabitswe: ' + error.message + (files.length ? ' Amafoto ashobora kuba yamaze koherezwa muri Storage.' : '')); return; }
-      if (uploadedUrls.length > 1) {
+      if (!editingId && uploadedUrls.length > 1) {
         const extraRows = uploadedUrls.slice(1).map((url, index) => ({ news_id: String(savedNews.id), image_url: url, sort_order: index + 2 }));
         const { error: galleryError } = await client.from('news_images').insert(extraRows);
         if (galleryError) { message('Inkuru yabitswe, ariko andi mafoto ntiyabitswe: ' + galleryError.message + '. Kora SQL y’imbonerahamwe news_images mbere yo kongera kugerageza.'); return; }
       }
-      $('newsForm').reset(); $('category').value = 'amakuru'; clearPreview();
-      message(article.published ? 'Inkuru yabitswe kandi yatangajwe.' : 'Inkuru yabitswe ariko ntiyatangazwa.');
+      clearNewsForm();
+      message(editingId ? 'Inkuru yahinduwe neza.' : (article.published ? 'Inkuru yabitswe kandi yatangajwe.' : 'Inkuru yabitswe ariko ntiyatangazwa.'));
+      await loadNews();
     } catch (error) {
       message(error && error.message ? error.message : 'Habaye ikibazo mu kohereza ifoto cyangwa kubika inkuru.');
     } finally {
@@ -320,6 +348,86 @@
       await verifyAdmin();
     }
   });
+
+  function formatDate(value) {
+    if (!value) return 'Itariki ntibonetse';
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? 'Itariki ntibonetse' : date.toLocaleString('rw-RW', { dateStyle: 'medium', timeStyle: 'short' });
+  }
+  function renderNewsList(rows) {
+    const term = $('newsSearch').value.trim().toLocaleLowerCase();
+    const filter = $('newsFilter').value;
+    const filtered = (rows || []).filter(article => {
+      const matchesTerm = !term || [article.title, article.summary, article.body, article.category].some(value => String(value || '').toLocaleLowerCase().includes(term));
+      const matchesStatus = filter === 'all' || (filter === 'published' ? article.published === true : article.published !== true);
+      return matchesTerm && matchesStatus;
+    });
+    newsList.replaceChildren();
+    if (!filtered.length) { newsList.append(makeElement('p', 'Nta nkuru ihuye n’icyo ushakisha.')); return; }
+    for (const article of filtered) {
+      const card = makeElement('article', undefined, 'item');
+      card.append(makeElement('h3', article.title || 'Nta mutwe'));
+      card.append(makeElement('span', article.published ? 'Yatangajwe' : 'Draft / ntiyatangazwa', 'badge ' + (article.published ? 'active-badge' : 'inactive-badge')));
+      card.append(makeElement('p', 'Icyiciro: ' + (article.category || 'Nta cyiciro'), 'meta'));
+      card.append(makeElement('p', 'Yashyizweho: ' + formatDate(article.created_at), 'meta'));
+      if (article.summary) card.append(makeElement('p', article.summary));
+      if (article.image_url && safeUrl(article.image_url)) {
+        const img = document.createElement('img'); img.src = article.image_url; img.alt = article.title || 'Ifoto y’inkuru'; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer'; card.append(img);
+      }
+      const edit = makeElement('button', 'Hindura'); edit.type = 'button';
+      edit.addEventListener('click', () => {
+        clearNewsForm();
+        $('newsId').value = article.id;
+        $('newsTitle').value = article.title || '';
+        $('category').value = article.category || 'amakuru';
+        $('summary').value = article.summary || '';
+        $('newsBody').value = article.body || '';
+        $('newsImage').value = article.image_url || '';
+        $('newsImage').dataset.originalUrl = article.image_url || '';
+        $('source').value = article.source || '';
+        $('sourceUrl').value = article.source_url || '';
+        $('published').checked = article.published === true;
+        $('newsFormHeading').textContent = 'Hindura inkuru';
+        $('saveNews').textContent = 'Bika impinduka';
+        $('cancelNewsEdit').classList.remove('hidden');
+        $('newsForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        message('Uri guhindura inkuru: ' + (article.title || ''));
+      });
+      const remove = makeElement('button', 'Siba inkuru', 'danger'); remove.type = 'button';
+      remove.addEventListener('click', async () => {
+        if (!requireAdmin() || busy) return;
+        if (!confirm('Urashaka gusiba inkuru “' + (article.title || '') + '”? Iki gikorwa ntigisubizwa inyuma.')) return;
+        if (!(await verifyAdmin())) { message('Ongera winjire nka Admin.'); return; }
+        busy = true; message('Turimo gusiba inkuru...');
+        try {
+          // Delete optional gallery rows first if that table exists, to avoid foreign-key conflicts.
+          const galleryResult = await client.from('news_images').delete().eq('news_id', String(article.id));
+          const galleryMissing = galleryResult.error && (galleryResult.error.code === '42P01' || galleryResult.error.code === 'PGRST205');
+          if (galleryResult.error && !galleryMissing) { message('Ntibyashobotse gusiba amafoto y’inyongera: ' + galleryResult.error.message); return; }
+          const { error: deleteError } = await client.from('news').delete().eq('id', article.id);
+          if (deleteError) { message('Gusiba inkuru byanze: ' + deleteError.message); return; }
+          if ($('newsId').value === String(article.id)) clearNewsForm();
+          message('Inkuru yasibwe.'); await loadNews();
+        } catch (error) { message('Habaye ikibazo mu gusiba inkuru: ' + (error.message || 'ongera ugerageze.')); }
+        finally { busy = false; await verifyAdmin(); }
+      });
+      card.append(edit, remove); newsList.append(card);
+    }
+  }
+  let cachedNews = [];
+  async function loadNews() {
+    if (!requireAdmin()) return;
+    if (!(await verifyAdmin())) { message('Ongera winjire nka Admin.'); return; }
+    newsList.replaceChildren(makeElement('p', 'Turimo kuzana inkuru...'));
+    try {
+      const { data, error } = await client.from('news').select('id,title,category,summary,body,image_url,source,source_url,published,created_at').order('created_at', { ascending: false });
+      if (error) { newsList.replaceChildren(makeElement('p', 'Inkuru ntizabonetse: ' + error.message)); return; }
+      cachedNews = data || []; renderNewsList(cachedNews);
+    } catch (error) { newsList.replaceChildren(makeElement('p', 'Habaye ikibazo mu kuzana inkuru: ' + (error.message || 'ongera ugerageze.'))); }
+  }
+  $('refreshNews').addEventListener('click', loadNews);
+  $('newsSearch').addEventListener('input', () => renderNewsList(cachedNews));
+  $('newsFilter').addEventListener('change', () => renderNewsList(cachedNews));
 
   function clearAdForm() {
     $('adForm').reset(); $('adId').value = ''; $('adActive').checked = true;
@@ -412,7 +520,7 @@
   }
   $('refreshAds').addEventListener('click', loadAds);
   verifyAdmin().then(async allowed => {
-    if (allowed) { message('Konti ya Admin iracyafunguye.'); await loadAds(); }
+    if (allowed) { message('Konti ya Admin iracyafunguye.'); await loadNews(); await loadAds(); }
   });
 })();
 </script>
