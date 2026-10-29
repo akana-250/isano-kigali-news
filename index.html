@@ -26,7 +26,7 @@ body {
   line-height:1.6;
 }
 a { color:inherit; text-decoration:none; }
-button,input,textarea,select { font:inherit; }
+button,input { font:inherit; }
 button { cursor:pointer; }
 .container { width:min(1180px,94%); margin:auto; }
 .topbar { background:#061c36; color:white; font-size:13px; padding:7px 0; }
@@ -65,141 +65,129 @@ main { padding:22px 0 40px; }
 .section-heading { display:flex; align-items:center; gap:10px; margin:0 0 15px; }
 .section-heading h2 { font-size:22px; margin:0; color:var(--navy); }
 .section-heading:after { content:""; height:3px; background:var(--gold); flex:1; max-width:90px; }
+
 .hidden { display:none!important; }
 
-/* Amatangazo asanzwe agaragara */
+/* AMATANGAZO: CAROUSEL YANOZWE */
 .advertisements-section {
-  margin:0 0 24px;
-  padding:12px;
+  margin:0 0 26px;
+  padding:16px;
   background:white;
+  border:1px solid #e2e8f0;
+  border-radius:12px;
+  box-shadow:0 4px 15px #0f172a0b;
+}
+.advertisements-section .section-heading { margin-bottom:12px; }
+.advertisements-section .section-heading h2 { font-size:21px; }
+
+.advertisements-grid {
+  display:block;
+  position:relative;
+  width:100%;
+}
+
+.ad-card {
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  overflow:hidden;
+  background:#f8fafc;
   border:1px solid #e2e8f0;
   border-radius:10px;
 }
-.advertisements-section .section-heading { margin-bottom:8px; }
-.advertisements-section .section-heading h2 { font-size:19px; }
-.advertisements-grid { display:block; }
-.ad-card {
-  display:grid;
-  grid-template-columns:150px minmax(0,1fr);
-  gap:12px;
-  align-items:center;
-  min-height:110px;
-  padding:10px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:8px;
-}
-.ad-card h3 {
-  grid-column:2;
-  grid-row:1;
-  margin:0;
-  color:var(--navy);
-  font-size:16px;
-  overflow-wrap:anywhere;
-}
+
 .ad-card img {
-  grid-column:1;
-  grid-row:1 / span 2;
   display:block;
   width:100%;
-  height:95px;
+  height:clamp(190px,32vw,340px);
   object-fit:contain;
-  background:white;
-  border-radius:5px;
+  object-position:center;
+  background:#eaf0f6;
 }
-.ad-card-body { grid-column:2; grid-row:2; padding:0; }
+
+.ad-card h3 {
+  margin:0;
+  padding:14px 16px 5px;
+  color:var(--navy);
+  font-size:clamp(17px,2.2vw,23px);
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
+
+.ad-card-body {
+  padding:0 16px 16px;
+}
+
 .ad-label {
   display:inline-block;
-  margin:0 6px 5px 0;
-  padding:2px 6px;
-  border-radius:3px;
+  margin:0 8px 8px 0;
+  padding:3px 8px;
+  border-radius:4px;
   background:#fef3c7;
   color:#854d0e;
-  font-size:10px;
+  font-size:11px;
   font-weight:bold;
 }
+
 .ad-link {
   display:inline-block;
   background:var(--blue);
   color:white;
-  padding:6px 10px;
-  border-radius:5px;
-  font-size:12px;
+  padding:8px 14px;
+  border-radius:6px;
+  font-size:13px;
   font-weight:bold;
+  transition:background .2s ease;
 }
+.ad-link:hover { background:var(--navy); }
+
 .ad-controls {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
-  margin-top:8px;
+  gap:12px;
+  margin-top:12px;
+  flex-wrap:wrap;
 }
+
 .ad-controls button {
   background:var(--navy);
   color:white;
   border:0;
-  border-radius:5px;
-  padding:5px 10px;
+  border-radius:6px;
+  padding:8px 13px;
+  transition:background .2s ease;
 }
-.ad-dots { color:var(--muted); font-size:12px; }
+.ad-controls button:hover { background:var(--blue); }
 
-/* IGICE GISHYA: gusaba kwamamaza */
-.ad-request-section {
-  margin:0 0 28px;
-  padding:22px;
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:10px;
+.ad-dots {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:7px;
+  flex:1;
+  flex-wrap:wrap;
 }
-.ad-request-intro {
-  color:var(--muted);
-  margin:-5px 0 18px;
-  font-size:14px;
-}
-.ad-request-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:15px;
-}
-.ad-field { display:flex; flex-direction:column; gap:6px; }
-.ad-field.full { grid-column:1 / -1; }
-.ad-field label { font-size:13px; font-weight:bold; color:var(--navy); }
-.ad-field input,.ad-field textarea,.ad-field select {
-  width:100%;
-  min-width:0;
-  padding:11px 12px;
-  border:1px solid #cbd5e1;
-  border-radius:7px;
-  background:#fff;
-  color:var(--text);
-}
-.ad-field input:focus,.ad-field textarea:focus {
-  outline:2px solid #93c5fd;
-  border-color:var(--blue);
-}
-.ad-field textarea { min-height:100px; resize:vertical; }
-.ad-help { font-size:12px; color:var(--muted); }
-.ad-submit {
-  background:var(--navy);
-  color:white;
+
+.ad-dot {
+  width:9px;
+  height:9px;
+  padding:0 !important;
   border:0;
-  padding:12px 20px;
-  border-radius:7px;
-  font-weight:bold;
+  border-radius:50% !important;
+  background:#cbd5e1 !important;
 }
-.ad-submit:hover { background:var(--blue); }
-.ad-submit:disabled { opacity:.6; cursor:wait; }
-.ad-form-message {
-  display:none;
-  margin-top:15px;
-  padding:12px;
-  border-radius:7px;
-  font-size:14px;
-  overflow-wrap:anywhere;
+.ad-dot.active {
+  width:23px;
+  background:var(--gold) !important;
+  border-radius:8px !important;
 }
-.ad-form-message.show { display:block; }
-.ad-form-message.success { background:#dcfce7; color:#166534; }
-.ad-form-message.error { background:#fee2e2; color:#991b1b; }
+.ad-dot:focus-visible,
+.ad-controls button:focus-visible,
+.ad-link:focus-visible {
+  outline:3px solid var(--gold);
+  outline-offset:3px;
+}
 
 .hero-grid { display:grid; grid-template-columns:1.6fr 1fr; gap:18px; }
 .featured {
@@ -277,13 +265,13 @@ footer a { color:#f2b632; }
   .side-story { grid-template-columns:38% 1fr; }
   .side-story img { height:100%; min-height:140px; }
   .news-card img { height:210px; }
-  .advertisements-section { padding:9px; }
-  .ad-card { grid-template-columns:105px minmax(0,1fr); gap:9px; padding:8px; }
-  .ad-card img { height:80px; }
-  .ad-card h3 { font-size:14px; }
-  .ad-request-section { padding:15px; }
-  .ad-request-grid { grid-template-columns:1fr; }
-  .ad-field.full { grid-column:auto; }
+  .advertisements-section { padding:10px; }
+  .ad-card img { height:210px; }
+  .ad-card h3 { padding:12px 12px 5px; font-size:17px; }
+  .ad-card-body { padding:0 12px 13px; }
+  .ad-controls { gap:7px; }
+  .ad-controls > button { padding:7px 9px; font-size:12px; }
+  .ad-dots { order:3; flex-basis:100%; }
 }
 </style>
 </head>
@@ -334,93 +322,14 @@ footer a { color:#f2b632; }
 <main class="container">
   <section id="homeView">
 
-    <!-- Amatangazo asanzwe yemejwe agaragara hano -->
     <section id="advertisementsSection" class="advertisements-section hidden" aria-label="Amatangazo">
       <div class="section-heading"><h2>Kwamamaza</h2></div>
-      <div id="advertisementsGrid" class="advertisements-grid"></div>
+      <div id="advertisementsGrid" class="advertisements-grid" aria-live="polite"></div>
       <div id="advertisementsControls" class="ad-controls hidden">
-        <button type="button" id="previousAd">← Ibanza</button>
-        <span id="adDots" class="ad-dots"></span>
-        <button type="button" id="nextAd">Ikurikira →</button>
+        <button type="button" id="previousAd" aria-label="Itangazo ribanza">← Ibanza</button>
+        <div id="adDots" class="ad-dots" aria-label="Hitamo itangazo"></div>
+        <button type="button" id="nextAd" aria-label="Itangazo rikurikira">Ikurikira →</button>
       </div>
-    </section>
-
-    <!-- IGICE GISHYA: gusaba kwamamaza -->
-    <section id="adRequestSection" class="ad-request-section">
-      <div class="section-heading">
-        <h2>Saba kwamamaza kuri ISANO KIGALI NEWS</h2>
-      </div>
-
-      <p class="ad-request-intro">
-        Ushaka kumenyekanisha ubucuruzi, serivisi cyangwa igicuruzwa cyawe?
-        Uzuza iyi fomu. Tuzakira ubusabe bwawe, tubusuzume, hanyuma tuvugane nawe.
-      </p>
-
-      <form id="adRequestForm">
-        <div class="ad-request-grid">
-          <div class="ad-field">
-            <label for="advertiserName">Amazina yawe *</label>
-            <input id="advertiserName" name="advertiserName" type="text"
-              maxlength="100" autocomplete="name" required
-              placeholder="Andika amazina yawe">
-          </div>
-
-          <div class="ad-field">
-            <label for="advertiserPhone">Telefone yawe *</label>
-            <input id="advertiserPhone" name="advertiserPhone" type="tel"
-              maxlength="30" autocomplete="tel" required
-              placeholder="Urugero: 0780000000">
-          </div>
-
-          <div class="ad-field">
-            <label for="advertiserEmail">Email (si ngombwa)</label>
-            <input id="advertiserEmail" name="advertiserEmail" type="email"
-              maxlength="150" autocomplete="email"
-              placeholder="Urugero: izina@email.com">
-          </div>
-
-          <div class="ad-field">
-            <label for="advertiserBusiness">Izina ry'ubucuruzi cyangwa ikigo *</label>
-            <input id="advertiserBusiness" name="advertiserBusiness" type="text"
-              maxlength="150" required
-              placeholder="Andika izina ry'ubucuruzi">
-          </div>
-
-          <div class="ad-field full">
-            <label for="requestedAdTitle">Umutwe w'itangazo *</label>
-            <input id="requestedAdTitle" name="requestedAdTitle" type="text"
-              maxlength="180" required
-              placeholder="Urugero: Kugabanyirizwa ibiciro muri iki cyumweru">
-          </div>
-
-          <div class="ad-field full">
-            <label for="requestedAdDescription">Ibisobanuro by'itangazo *</label>
-            <textarea id="requestedAdDescription" name="requestedAdDescription"
-              maxlength="3000" required
-              placeholder="Sobanura ibicuruzwa cyangwa serivisi ushaka kwamamaza, igiciro n'uburyo abantu bakugeraho."></textarea>
-          </div>
-
-          <div class="ad-field full">
-            <label for="requestedAdImage">Link y'ifoto y'itangazo (si ngombwa)</label>
-            <input id="requestedAdImage" name="requestedAdImage" type="url"
-              maxlength="1000" placeholder="https://urugero.com/ifoto.jpg">
-            <span class="ad-help">Shyiramo link y'ifoto iri kuri internet. Niba utayifite, siga aha ubusa.</span>
-          </div>
-
-          <div class="ad-field full">
-            <label for="requestedAdTarget">Link abantu bazafungura (si ngombwa)</label>
-            <input id="requestedAdTarget" name="requestedAdTarget" type="url"
-              maxlength="1000" placeholder="https://urubuga-rwawe.com">
-          </div>
-
-          <div class="ad-field full">
-            <button class="ad-submit" id="adSubmitButton" type="submit">
-              Ohereza ubusabe bwo kwamamaza
-            </button>
-            <div id="adRequestMessage" class="ad-form-message" role="status" aria-live="polite"></div>
-          </div>
-        </div>
-      </form>
     </section>
 
     <div class="section-heading"><h2>Inkuru z'ingenzi</h2></div>
@@ -454,7 +363,6 @@ footer a { color:#f2b632; }
         <div id="newsGrid" class="news-grid"></div>
         <button id="loadMore" class="load-more hidden">Reba andi makuru</button>
       </section>
-
       <aside>
         <div class="sidebar-box">
           <h3>Ibyiciro</h3>
@@ -469,7 +377,6 @@ footer a { color:#f2b632; }
             <a class="side-link" href="#" data-category="amahanga">Amahanga</a>
           </div>
         </div>
-
         <div class="sidebar-box">
           <h3>Amakuru mashya</h3>
           <div id="recentLinks">Turimo kuyazana...</div>
@@ -490,7 +397,6 @@ footer a { color:#f2b632; }
     <p>Amakuru agezweho mu Rwanda no ku isi.</p>
     <p>© <span id="year"></span> ISANO KIGALI NEWS. Uburenganzira bwose burabitswe.</p>
     <p><a href="admin.html">Admin</a></p>
-    <p><a href="#adRequestSection">Saba kwamamaza</a></p>
   </div>
 </footer>
 
@@ -532,7 +438,6 @@ footer a { color:#f2b632; }
   let adItems = [];
   let adIndex = 0;
   let adTimer = null;
-  let supabaseClient = null;
 
   $('today').textContent = new Intl.DateTimeFormat('rw-RW', {
     dateStyle:'full'
@@ -565,7 +470,7 @@ footer a { color:#f2b632; }
   function safeURL(value) {
     if (!value) return '';
     try {
-      const url = new URL(String(value),window.location.href);
+      const url = new URL(String(value), window.location.href);
       return ['https:','http:'].includes(url.protocol) ? url.href : '';
     } catch {
       return '';
@@ -577,11 +482,11 @@ footer a { color:#f2b632; }
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return 'Itariki ntizwi';
     return new Intl.DateTimeFormat('rw-RW', {
-      year:'numeric',month:'short',day:'numeric'
+      year:'numeric', month:'short', day:'numeric'
     }).format(date);
   }
 
-  function imageMarkup(url,title) {
+  function imageMarkup(url, title) {
     const safe = safeURL(url);
     if (!safe) {
       return '<img src="https://placehold.co/800x450/123b70/ffffff?text=ISANO+KIGALI+NEWS" alt="ISANO KIGALI NEWS">';
@@ -697,16 +602,12 @@ footer a { color:#f2b632; }
     document.querySelectorAll('[data-category]').forEach(button => {
       const active = button.dataset.category === activeCategory;
       button.classList.toggle('active',active);
-      if (button.tagName === 'BUTTON') {
-        button.setAttribute('aria-pressed',String(active));
-      }
+      if (button.tagName === 'BUTTON') button.setAttribute('aria-pressed',String(active));
     });
   }
 
   function showCategory(category) {
-    activeCategory = Object.prototype.hasOwnProperty.call(categories,category)
-      ? category : 'all';
-
+    activeCategory = categories[category] ? category : 'all';
     $('homeView').classList.remove('hidden');
     $('articleView').classList.add('hidden');
     applyFilters();
@@ -735,45 +636,68 @@ footer a { color:#f2b632; }
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
-  /* Guhinduranya amatangazo yemejwe */
+  /* AMATANGAZO AZUNGURUKA */
+  function renderAdDots() {
+    const dots = $('adDots');
+    dots.replaceChildren();
+
+    adItems.forEach((ad,index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'ad-dot' + (index === adIndex ? ' active' : '');
+      dot.setAttribute('aria-label',`Reba itangazo rya ${index + 1}`);
+      dot.setAttribute('aria-current',index === adIndex ? 'true' : 'false');
+      dot.title = `Itangazo ${index + 1}`;
+
+      dot.addEventListener('click',() => {
+        showAdvertisement(index);
+        restartAdTimer();
+      });
+
+      dots.appendChild(dot);
+    });
+  }
+
   function showAdvertisement(index) {
     const grid = $('advertisementsGrid');
     const controls = $('advertisementsControls');
+    const section = $('advertisementsSection');
 
     if (!adItems.length) {
       grid.replaceChildren();
       controls.classList.add('hidden');
+      section.classList.add('hidden');
       return;
     }
 
     adIndex = (index + adItems.length) % adItems.length;
     const ad = adItems[adIndex];
 
-    grid.replaceChildren();
-
     const card = document.createElement('article');
     card.className = 'ad-card';
-
-    const title = document.createElement('h3');
-    title.textContent = ad.title || 'Itangazo';
-    card.appendChild(title);
 
     const imageURL = safeURL(ad.image_url);
     if (imageURL) {
       const image = document.createElement('img');
       image.src = imageURL;
       image.alt = ad.title || 'Itangazo';
-      image.loading = 'lazy';
-      image.onerror = () => image.remove();
+      image.loading = 'eager';
+      image.onerror = () => {
+        image.remove();
+      };
       card.appendChild(image);
     }
+
+    const title = document.createElement('h3');
+    title.textContent = ad.title || 'Itangazo';
+    card.appendChild(title);
 
     const body = document.createElement('div');
     body.className = 'ad-card-body';
 
     const label = document.createElement('span');
     label.className = 'ad-label';
-    label.textContent = 'Itangazo';
+    label.textContent = 'ITANGAZO';
     body.appendChild(label);
 
     const targetURL = safeURL(ad.target_url);
@@ -788,15 +712,27 @@ footer a { color:#f2b632; }
     }
 
     card.appendChild(body);
-    grid.appendChild(card);
+    grid.replaceChildren(card);
 
-    $('adDots').textContent = `${adIndex + 1} / ${adItems.length}`;
+    renderAdDots();
     controls.classList.toggle('hidden',adItems.length <= 1);
+  }
+
+  function restartAdTimer() {
+    if (adTimer) {
+      clearInterval(adTimer);
+      adTimer = null;
+    }
+
+    if (adItems.length > 1) {
+      adTimer = setInterval(() => {
+        showAdvertisement(adIndex + 1);
+      },5000);
+    }
   }
 
   async function loadAdvertisements(client) {
     const section = $('advertisementsSection');
-    const controls = $('advertisementsControls');
 
     if (adTimer) {
       clearInterval(adTimer);
@@ -806,7 +742,8 @@ footer a { color:#f2b632; }
     adItems = [];
     adIndex = 0;
     $('advertisementsGrid').replaceChildren();
-    controls.classList.add('hidden');
+    $('adDots').replaceChildren();
+    $('advertisementsControls').classList.add('hidden');
 
     try {
       const {data,error} = await client
@@ -827,99 +764,38 @@ footer a { color:#f2b632; }
       section.classList.remove('hidden');
       showAdvertisement(0);
 
-      $('previousAd').onclick = () => showAdvertisement(adIndex - 1);
-      $('nextAd').onclick = () => showAdvertisement(adIndex + 1);
+      $('previousAd').onclick = () => {
+        showAdvertisement(adIndex - 1);
+        restartAdTimer();
+      };
 
-      if (adItems.length > 1) {
-        adTimer = setInterval(() => showAdvertisement(adIndex + 1),5000);
-      }
+      $('nextAd').onclick = () => {
+        showAdvertisement(adIndex + 1);
+        restartAdTimer();
+      };
+
+      restartAdTimer();
+
+      /* Hagarika kuzenguruka igihe umuntu ari kuri carousel. */
+      section.addEventListener('mouseenter',pauseAdTimer);
+      section.addEventListener('mouseleave',restartAdTimer);
+      section.addEventListener('focusin',pauseAdTimer);
+      section.addEventListener('focusout',event => {
+        if (!section.contains(event.relatedTarget)) restartAdTimer();
+      });
+
     } catch (error) {
       console.error('Supabase advertisements error:',error);
       section.classList.add('hidden');
     }
   }
 
-  /* Kohereza ubusabe bwo kwamamaza muri Supabase */
-  function showAdRequestMessage(message,type) {
-    const box = $('adRequestMessage');
-    box.textContent = message;
-    box.className = `ad-form-message show ${type}`;
+  function pauseAdTimer() {
+    if (adTimer) {
+      clearInterval(adTimer);
+      adTimer = null;
+    }
   }
-
-  $('adRequestForm').addEventListener('submit',async event => {
-    event.preventDefault();
-
-    if (!supabaseClient) {
-      showAdRequestMessage(
-        'Serivisi yo kwakira ubusabe ntiraboneka. Ongera ugerageze nyuma.',
-        'error'
-      );
-      return;
-    }
-
-    const button = $('adSubmitButton');
-    const form = $('adRequestForm');
-
-    const advertiserName = $('advertiserName').value.trim();
-    const advertiserPhone = $('advertiserPhone').value.trim();
-    const advertiserEmail = $('advertiserEmail').value.trim();
-    const advertiserBusiness = $('advertiserBusiness').value.trim();
-    const title = $('requestedAdTitle').value.trim();
-    const description = $('requestedAdDescription').value.trim();
-    const imageUrl = $('requestedAdImage').value.trim();
-    const targetUrl = $('requestedAdTarget').value.trim();
-
-    if (!advertiserName || !advertiserPhone || !advertiserBusiness || !title || !description) {
-      showAdRequestMessage('Uzuza ahantu hose hasabwa mbere yo kohereza.', 'error');
-      return;
-    }
-
-    if (imageUrl && !safeURL(imageUrl)) {
-      showAdRequestMessage('Link y’ifoto si yo. Koresha link itangirana na https:// cyangwa http://.', 'error');
-      return;
-    }
-
-    if (targetUrl && !safeURL(targetUrl)) {
-      showAdRequestMessage('Link y’aho itangazo rijyana si yo. Ongera uyigenzure.', 'error');
-      return;
-    }
-
-    button.disabled = true;
-    button.textContent = 'Turimo kohereza...';
-
-    try {
-      const {error} = await supabaseClient
-        .from('advertisement_requests')
-        .insert([{
-          advertiser_name: advertiserName,
-          advertiser_phone: advertiserPhone,
-          advertiser_email: advertiserEmail || null,
-          business_name: advertiserBusiness,
-          title: title,
-          description: description,
-          image_url: imageUrl || null,
-          target_url: targetUrl || null
-        }]);
-
-      if (error) throw error;
-
-      form.reset();
-      showAdRequestMessage(
-        'Ubusabe bwawe bwo kwamamaza bwoherejwe neza. Buzabanza gusuzumwa mbere y’uko itangazo rigaragara ku rubuga.',
-        'success'
-      );
-    } catch (error) {
-      console.error('Advertisement request error:',error);
-
-      showAdRequestMessage(
-        'Ubusabe ntibwoherejwe. Reba ko table advertisement_requests na Supabase INSERT policy byashyizweho, hanyuma wongere ugerageze.',
-        'error'
-      );
-    } finally {
-      button.disabled = false;
-      button.textContent = 'Ohereza ubusabe bwo kwamamaza';
-    }
-  });
 
   function renderRecent() {
     $('recentLinks').innerHTML = allNews.slice(0,6).map(item => `
@@ -1020,18 +896,14 @@ footer a { color:#f2b632; }
     if (!window.supabase) {
       newsStatus.classList.remove('hidden');
       newsStatus.textContent = 'Supabase ntiyafungutse. Reba internet wongere ugerageze.';
-      showAdRequestMessage(
-        'Serivisi yo kwakira ubusabe ntiraboneka kubera ko Supabase itafungutse.',
-        'error'
-      );
       return;
     }
 
-    supabaseClient = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+    const client = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
     await Promise.allSettled([
-      loadAdvertisements(supabaseClient),
-      loadNews(supabaseClient)
+      loadAdvertisements(client),
+      loadNews(client)
     ]);
   }
 
